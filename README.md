@@ -9,9 +9,8 @@ Whether you're just getting started with Gaia or looking for specific patterns a
 Gaia is a decentralized computing infrastructure that enables everyone to create, deploy, scale, and monetize their own AI agents that reflect their styles, values, knowledge, and expertise.
 
 It allows individuals and businesses to create AI agents. Each Gaia node provides:
-
-    - a web-based chatbot UI
-    - an OpenAI compatible API.
+- a web-based chatbot UI
+- an OpenAI compatible API.
 
 100% of today's AI agents are applications in the OpenAI ecosystem. With our API approach, Gaia is an alternative to OpenAI. Each Gaia node has the ability to be customized with a fine-tuned model supplemented by domain knowledge which eliminates the generic responses many have come to expect. For example, a Gaia node for a financial analyst agent can write SQL code to query SEC 10K filings to respond to user questions.
 
@@ -35,6 +34,11 @@ We welcome contributions! If you have an example, a fix, or an improvement, plea
 4.  **Push** to the branch (`git push origin feature/your-new-feature`).
 5.  Open a **Pull Request**.
 
-Happy Coding with Gaia! 
-
 If you have any questions or suggestions, please open an issue in this repository.
+
+## Gaia Resources
+
+[Github](https://github.com/GaiaNet-AI/)
+[Huggingface](https://huggingface.co/gaianet)
+[YouTube](https://www.youtube.com/@GaiaAI/videos)
+[Builders Chat](https://t.me/+a0bJInD5lsYxNDJl)
