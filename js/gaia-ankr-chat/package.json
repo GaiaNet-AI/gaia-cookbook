@@ -1,0 +1,40 @@
+{
+  "name": "gaia-ankr-chat",
+  "version": "1.0.0",
+  "description": "A Node.js application demonstrating how to use a Gaia OpenAI-compatible API with Ankr's blockchain APIs for natural language blockchain data queries via tool calling.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "gaia",
+    "ankr",
+    "blockchain",
+    "ai",
+    "nlp",
+    "openai-compatible",
+    "tool-calling",
+    "function-calling",
+    "chatgpt-plugin-style",
+    "ethereum",
+    "bsc",
+    "polygon",
+    "multichain",
+    "crypto",
+    "web3",
+    "api",
+    "assistant",
+    "chatbot",
+    "nodejs"
+  ],
+  "author": "Harish Kotra",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "node-fetch": "^3.3.2",
+    "openai": "^4.98.0",
+    "readline-sync": "^1.4.10"
+  }
+}
