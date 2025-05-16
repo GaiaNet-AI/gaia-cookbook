@@ -38,7 +38,7 @@ If you have any questions or suggestions, please open an issue in this repositor
 
 ## Gaia Resources
 
-[Github](https://github.com/GaiaNet-AI/)
-[Huggingface](https://huggingface.co/gaianet)
-[YouTube](https://www.youtube.com/@GaiaAI/videos)
-[Builders Chat](https://t.me/+a0bJInD5lsYxNDJl)
+- [Github](https://github.com/GaiaNet-AI/)
+- [Huggingface](https://huggingface.co/gaianet)
+- [YouTube](https://www.youtube.com/@GaiaAI/videos)
+- [Builders Chat](https://t.me/+a0bJInD5lsYxNDJl)
