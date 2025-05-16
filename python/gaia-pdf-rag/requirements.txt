@@ -1,0 +1,8 @@
+langchain==0.1.0
+langchain-community==0.0.20
+langchain-core==0.1.23
+PyMuPDF==1.23.25
+qdrant-client==1.12.2
+requests==2.31.0
+sentence-transformers==3.3.1
+streamlit==1.41.1
