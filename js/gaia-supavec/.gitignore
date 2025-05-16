@@ -1,0 +1,36 @@
+.codegpt
+# Compiled output
+dist/
+tmp/
+out-tsc/
+bazel-out/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Angular
+.angular/
+
+# Environment variables
+.env
+
+# Compiled output from the backend
+backend/dist/
+backend/node_modules/
+
+# Compiled output from the frontend
+frontend/dist/
+frontend/tmp/
+frontend/out-tsc/
+frontend/bazel-out/
+frontend/node_modules/
+
+# IDE files
+.idea/
+.vscode/
+
+# Misc
+.DS_Store
+Thumbs.db
