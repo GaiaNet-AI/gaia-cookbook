@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Notion Gaia Assistant</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h2 class="title">Notion Gaia Assistant</h2>
+    
+    <div class="settings-card">
+      <label for="apiEndpoint">Gaia Node URL:</label>
+      <input 
+        type="text" 
+        id="apiEndpoint" 
+        placeholder="https://yournode.gaianet.network/v1"
+        class="input-field"
+      >
+      <button id="saveSettings" class="button primary-button">Save Settings</button>
+    </div>
+
+    <div class="actions-group">
+      <button id="summarize" class="button action-button">
+        <span class="button-content">
+          <span class="spinner hidden"></span>
+          Summarize Page
+        </span>
+      </button>
+      <button id="suggest" class="button action-button">
+        <span class="button-content">
+          <span class="spinner hidden"></span>
+          Suggest Improvements
+        </span>
+      </button>
+      <button id="research" class="button action-button">
+        <span class="button-content">
+          <span class="spinner hidden"></span>
+          Research Topics
+        </span>
+      </button>
+    </div>
+    <div class="chat-input-container">
+        <label for="pageQuestion">Ask a question about this page:</label>
+        <textarea 
+            id="pageQuestion" 
+            class="chat-input" 
+            placeholder="Type your question here..."
+        ></textarea>
+        <button id="askQuestion" class="button primary-button">
+            <span class="button-content">
+                <span class="spinner hidden"></span>
+                Ask Question
+            </span>
+        </button>
+    </div>
+    <div id="messages" class="messages"></div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
