@@ -1,0 +1,30 @@
+# Node.js dependencies
+node_modules/
+package-lock.json
+
+# Hardhat artifacts and cache
+artifacts/
+cache/
+
+# Environment variables
+.env
+
+# VSCode settings
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE specific
+.idea/
+*.iml
+
+# Miscellaneous
+*.log
+*.tmp
