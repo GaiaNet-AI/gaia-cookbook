@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaia + Nubila Weather Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Optional: For extra icons -->
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-cloud-sun-rain"></i> Weather Assistant</h1>
+            <p class="description">
+                Ask for current weather or forecasts using natural language!
+                This app uses the <a href="https://docs.gaianet.ai/?ref=nubila-demo" target="_blank" rel="noopener noreferrer">Gaia LLM</a> to understand your request and then fetches detailed weather data from the <a href="https://api.nubila.ai/" target="_blank" rel="noopener noreferrer">Nubila Weather API</a> based on the identified location and type (current/forecast).
+            </p>
+        </header>
+
+        <div class="input-section">
+            <div class="input-container">
+                <input type="text" id="queryInput" placeholder="e.g., 'What's the weather like in Tokyo?'">
+                <button id="getWeatherBtn" aria-label="Get Weather"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="prompt-suggestions" id="promptSuggestions">
+                <button class="prompt-btn">Current weather in New York</button>
+                <button class="prompt-btn">Forecast for London</button>
+                <button class="prompt-btn">Is it raining in Seattle?</button>
+                <button class="prompt-btn">5 day forecast Paris</button>
+            </div>
+        </div>
+
+        <div id="loading" class="status-message" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Processing your request...</div>
+        <div id="error" class="status-message error-message" style="display: none;"></div>
+
+        <div id="results">
+            <!-- Interpretation, Current Weather, and Forecast will be dynamically added here -->
+        </div>
+
+    </div> <!-- /container -->
+
+    <script src="script.js"></script>
+</body>
+</html>

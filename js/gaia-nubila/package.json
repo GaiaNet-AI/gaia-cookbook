@@ -1,0 +1,40 @@
+{
+  "name": "gaia-nubila-weather",
+  "version": "1.0.0",
+  "description": "A simple web app using Gaia LLM (OpenAI compatible API) to interpret natural language weather queries and fetch data from the Nubila Weather API.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "weather",
+    "forecast",
+    "natural-language",
+    "nlp",
+    "llm",
+    "gaia",
+    "nubila",
+    "api-integration",
+    "nodejs",
+    "express",
+    "javascript",
+    "tool-calling-example",
+    "openai-compatible",
+    "ai",
+    "assistant",
+    "demo"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "Harish Kotra",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2"
+  }
+}
