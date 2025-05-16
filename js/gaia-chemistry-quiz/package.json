@@ -1,0 +1,16 @@
+{
+  "name": "chemistry-quiz",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node quiz.js"
+  },
+  "keywords": [],
+  "author": "Harish Kotra",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "fs": "^0.0.1-security",
+    "readline": "^1.3.0"
+  }
+}

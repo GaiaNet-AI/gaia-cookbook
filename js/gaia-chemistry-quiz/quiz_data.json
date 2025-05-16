@@ -1,0 +1,54 @@
+{
+    "questions": [
+        {
+            "question": "What is the chemical symbol for gold?",
+            "options": ["Ag", "Au", "Hg", "Pb"],
+            "correctAnswer": "Au"
+        },
+        {
+            "question": "What is the process by which water moves through a plant, from the roots to the leaves, and is then released into the air as water vapor?",
+            "options": ["Respiration", "Photosynthesis", "Transpiration", "Osmosis"],
+            "correctAnswer": "Transpiration"
+        },
+        {
+            "question": "Which of the following elements is a noble gas?",
+            "options": ["Carbon", "Nitrogen", "Oxygen", "Argon"],
+            "correctAnswer": "Argon"
+        },
+        {
+            "question": "What is the scientific term for the 'building blocks of life'?",
+            "options": ["Molecules", "Cells", "Atoms", "Tissues"],
+            "correctAnswer": "Cells"
+        },
+        {
+            "question": "Which chemical compound has the formula H2O?",
+            "options": ["Carbon dioxide", "Nitrogen gas", "Hydrogen peroxide", "Water"],
+            "correctAnswer": "Water"
+        },
+        {
+            "question": "What is the pH of a neutral solution?",
+            "options": ["0", "7", "14", "-1"],
+            "correctAnswer": "7"
+        },
+        {
+            "question": "Which of the following elements is a metalloid?",
+            "options": ["Silicon", "Carbon", "Oxygen", "Nitrogen"],
+            "correctAnswer": "Silicon"
+        },
+        {
+            "question": "What is the term for a mixture of two or more substances that are not chemically combined?",
+            "options": ["Solution", "Mixture", "Compound", "Element"],
+            "correctAnswer": "Mixture"
+        },
+        {
+            "question": "Which chemical compound has the formula CO2?",
+            "options": ["Carbon monoxide", "Nitrogen gas", "Oxygen gas", "Carbon dioxide"],
+            "correctAnswer": "Carbon dioxide"
+        },
+        {
+            "question": "What is the process by which an atom gains or loses electrons to form ions?",
+            "options": ["Ionization", "Electron transfer", "Chemical reaction", "Protonation"],
+            "correctAnswer": "Electron transfer"
+        }
+    ]
+}
