@@ -3,6 +3,11 @@
 This an **example application** demonstrating how you can combine the power of **Gaia's OpenAI-compatible API** (that's your own self-hosted or managed AI node!) with **Ankr's comprehensive blockchain data APIs**. Think of it as building a smart assistant that understands your natural language requests and fetches blockchain information for you.
 
 
+
+https://github.com/user-attachments/assets/d9b76af3-ac05-432d-8209-19a089a4afb4
+
+
+
 ![ankr-1](https://github.com/user-attachments/assets/cdc76be3-4cf4-4b97-b7da-2b0a516dc895)
 ![ankr-2](https://github.com/user-attachments/assets/bb3c0f9e-ea21-4b95-82d1-6a38a31bbe8a)
 ![ankr-3](https://github.com/user-attachments/assets/222199fb-a6a0-4c59-b3b3-045fd2808f82)
