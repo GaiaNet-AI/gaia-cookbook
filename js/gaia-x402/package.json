@@ -1,0 +1,47 @@
+{
+  "name": "gaia-x402",
+  "version": "1.0.0",
+  "description": "A proxy server for Gaia Node's APIs with x402 per-request crypto payments, and an interactive client.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "node server.js",
+    "client": "node client.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "x402",
+    "crypto",
+    "payment",
+    "api",
+    "gaia",
+    "openai",
+    "llm",
+    "ai",
+    "blockchain",
+    "evm",
+    "base-sepolia",
+    "viem",
+    "expressjs",
+    "nodejs",
+    "micropayments",
+    "paid-api",
+    "web3",
+    "decentralized-api"
+  ],
+  "author": "Harish Kotra",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "inquirer": "^12.6.1",
+    "node-fetch": "^3.3.2",
+    "viem": "^2.30.0",
+    "x402-axios": "^0.3.3",
+    "x402-express": "^0.3.4",
+    "x402-fetch": "^0.3.3"
+  }
+}
