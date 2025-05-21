@@ -4,6 +4,10 @@ This project demonstrates how to create a paid API service that proxies requests
 
 The server is built with Express.js and `x402-express` middleware, allowing you to charge users in cryptocurrency (e.g., USDC) for accessing different AI functionalities. The client is an interactive terminal application built with Node.js, Viem.js, and `x402-fetch` to handle the payment flow and API interaction.
 
+![x402-client](https://github.com/user-attachments/assets/593fa985-d3c7-4407-a7b8-77fb9bfdfb92)
+
+https://github.com/user-attachments/assets/30965d85-4f40-4c21-b4e7-7fc364bea6af
+
 ## Features
 
 *   **Server-Side (`server.js`):**
