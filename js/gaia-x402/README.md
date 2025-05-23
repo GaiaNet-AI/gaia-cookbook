@@ -59,8 +59,8 @@ https://github.com/user-attachments/assets/30965d85-4f40-4c21-b4e7-7fc364bea6af
     Open `.env` and fill in the required values:
     *   `PORT`: Port for the server (e.g., `4021`).
     *   `RECEIVING_WALLET_ADDRESS`: Your wallet address to receive API payments.
-    *   `LLAMA_API_KEY`: Your API key for the Llama/Gaia service.
-    *   `LLAMA_API_URL`: The base URL for the Llama/Gaia API.
+    *   `GAIA_API_KEY`: Your API key for the Llama/Gaia service.
+    *   `GAIA_API_URL`: The base URL for the Llama/Gaia API.
     *   `NETWORK`: The blockchain network (e.g., `base-sepolia`).
     *   `FACILITATOR_URL`: The x402 facilitator URL for the chosen network.
     *   `PRICE_FULL_COMPLETION`, `PRICE_SUMMARY`, `PRICE_ONE_WORD`: Prices for each service.
