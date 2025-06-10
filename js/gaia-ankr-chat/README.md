@@ -1,6 +1,6 @@
-# Gaia <> Ankr: Your AI-Powered Blockchain Assistant 🤖🔗
+# Gaia <> Neura: Your AI-Powered Blockchain Assistant 🤖🔗
 
-This an **example application** demonstrating how you can combine the power of **Gaia's OpenAI-compatible API** (that's your own self-hosted or managed AI node!) with **Ankr's comprehensive blockchain data APIs**. Think of it as building a smart assistant that understands your natural language requests and fetches blockchain information for you.
+This an **example application** demonstrating how you can combine the power of **Gaia's OpenAI-compatible API** (that's your own self-hosted or managed AI node!) with **Neura's comprehensive blockchain data APIs**. Think of it as building a smart assistant that understands your natural language requests and fetches blockchain information for you.
 
 
 
@@ -8,10 +8,10 @@ https://github.com/user-attachments/assets/d9b76af3-ac05-432d-8209-19a089a4afb4
 
 
 
-![ankr-1](https://github.com/user-attachments/assets/cdc76be3-4cf4-4b97-b7da-2b0a516dc895)
-![ankr-2](https://github.com/user-attachments/assets/bb3c0f9e-ea21-4b95-82d1-6a38a31bbe8a)
-![ankr-3](https://github.com/user-attachments/assets/222199fb-a6a0-4c59-b3b3-045fd2808f82)
-![ankr-4](https://github.com/user-attachments/assets/bb1614ba-1e99-46f7-8182-416d4d6eda1f)
+![Neura-1](https://github.com/user-attachments/assets/cdc76be3-4cf4-4b97-b7da-2b0a516dc895)
+![Neura-2](https://github.com/user-attachments/assets/bb3c0f9e-ea21-4b95-82d1-6a38a31bbe8a)
+![Neura-3](https://github.com/user-attachments/assets/222199fb-a6a0-4c59-b3b3-045fd2808f82)
+![Neura-4](https://github.com/user-attachments/assets/bb1614ba-1e99-46f7-8182-416d4d6eda1f)
 
 ## What's Cool About This? 🤩
 
@@ -20,26 +20,26 @@ https://github.com/user-attachments/assets/d9b76af3-ac05-432d-8209-19a089a4afb4
     *   "What are the latest transactions for Vitalik's address on Polygon?"
     *   "Get me the metadata for NFT contract 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d, token ID 1234 on eth."
 *   **Leverage Your Gaia Node:** Use your own Gaia instance, giving you control over the AI model, costs, and data privacy.
-*   **Ankr's Data Prowess:** Tap into Ankr's rich dataset across dozens of blockchains for information on:
+*   **Neura's Data Prowess:** Tap into Neura's rich dataset across dozens of blockchains for information on:
     *   Blockchain stats
     *   Account balances (native and tokens)
     *   NFTs (owned, metadata, holders, transfers)
     *   Token details (price, holders, transfers)
     *   Transaction histories
     *   And much more!
-*   **Tool Calling Magic:** This project showcases OpenAI's "Tool Calling" (or "Function Calling") feature. Gaia intelligently figures out which Ankr API endpoint to call based on your question and extracts the necessary parameters.
+*   **Tool Calling Magic:** This project showcases OpenAI's "Tool Calling" (or "Function Calling") feature. Gaia intelligently figures out which Neura API endpoint to call based on your question and extracts the necessary parameters.
 *   **Extensible Foundation:** This is a starting point! You can easily:
-    *   Add more Ankr API tools.
+    *   Add more Neura API tools.
     *   Integrate other blockchain services.
     *   Build this into a Discord bot, a web app, or any other application you can dream up.
 
 ## How It Works (The Gist) 🤓
 
 1.  You type a question into the simple command-line interface.
-2.  The app sends your question, along with a list of "tools" (which describe Ankr's API functions), to your Gaia node.
-3.  Gaia analyzes your question and, if appropriate, decides to "call a tool." It tells our app *which* Ankr function to use and *what parameters* (like wallet addresses, blockchain names) it extracted from your question.
-4.  Our Node.js app takes these instructions, formats a proper request to the Ankr API, and fires it off.
-5.  Ankr sends back the blockchain data.
+2.  The app sends your question, along with a list of "tools" (which describe Neura's API functions), to your Gaia node.
+3.  Gaia analyzes your question and, if appropriate, decides to "call a tool." It tells our app *which* Neura function to use and *what parameters* (like wallet addresses, blockchain names) it extracted from your question.
+4.  Our Node.js app takes these instructions, formats a proper request to the Neura API, and fires it off.
+5.  Neura sends back the blockchain data.
 6.  The app sends this data *back* to Gaia.
 7.  Gaia then uses this data to formulate a friendly, human-readable answer to your original question.
 
@@ -47,13 +47,13 @@ It's like having a conversation where your AI assistant can go off and do some r
 
 ## Getting Your Own Version Up and Running 🚀
 
-Ready to try this with your own Gaia node and Ankr API key? Here's how:
+Ready to try this with your own Gaia node and Neura API key? Here's how:
 
 **Prerequisites:**
 
 *   **Node.js:** (v18+ recommended for built-in `fetch`, though `node-fetch` is used here for broader compatibility).
 *   **A Gaia Node:** You need your Gaia API endpoint and an API key. Make sure it's an OpenAI-compatible endpoint (usually ends in `/v1`).
-*   **Ankr API Key:** Sign up at [Ankr RPC Service](https://www.ankr.com/rpc/?utm_referral=uLW8gqj8P6) to get a free API key for their multichain APIs.
+*   **Neura API Key:** Sign up at [Neura RPC Service](https://www.Neura.com/rpc/neura/) to get a free API key for their multichain APIs.
 *   **A Gaia API Key:** If you're using one of Gaia's [Public Nodes](https://docs.gaianet.ai/nodes/), you will need an API Key. Please get your Free API Key from Gaia [here](https://docs.gaianet.ai/getting-started/authentication).
 
 **Steps:**
@@ -64,7 +64,7 @@ Ready to try this with your own Gaia node and Ankr API key? Here's how:
     ```bash
     npm install
     ```
-    This will install the `openai` library (for talking to Gaia), `node-fetch` (for Ankr calls), `dotenv` (for managing API keys), and `readline-sync` (for the command-line chat).
+    This will install the `openai` library (for talking to Gaia), `node-fetch` (for Neura calls), `dotenv` (for managing API keys), and `readline-sync` (for the command-line chat).
 
 3.  **Set Up Your API Keys (`.env` file):**
     Create a file named `.env` in the root of the project directory. Copy the contents of `.env.example` (if provided) or add the following lines, replacing the placeholders with your actual keys and endpoint:
@@ -73,7 +73,7 @@ Ready to try this with your own Gaia node and Ankr API key? Here's how:
     GAIA_API_KEY=your_gaia_api_key_here
     GAIA_API_ENDPOINT=https://YOUR_NODE_ID.gaia.domains/v1
     GAIA_MODEL_NAME=name_of_the_model
-    ANKR_API_KEY=your_ankr_api_key_here
+    Neura_API_KEY=your_Neura_api_key_here
     ```
     *   **Important for `GAIA_API_ENDPOINT`:** This should be the *base URL* of your Gaia's OpenAI-compatible API. For example, if your chat completions endpoint is `https://YOUR_NODE_ID.gaia.domains/v1/chat/completions`, your `GAIA_API_ENDPOINT` should be `https://YOUR_NODE_ID.gaia.domains/v1`.
 
@@ -91,13 +91,13 @@ Ready to try this with your own Gaia node and Ankr API key? Here's how:
 
 ## Diving Deeper & Customizing 🛠️
 
-*   **`ankrTools.js`:** This is where the magic of defining Ankr's API capabilities for Gaia happens. Each "tool" is described in a JSON schema format that Gaia understands. If Ankr adds new API methods or you want to use different ones, you'd add or modify definitions here. Pay attention to the `description` fields – they help Gaia choose the right tool!
+*   **`NeuraTools.js`:** This is where the magic of defining Neura's API capabilities for Gaia happens. Each "tool" is described in a JSON schema format that Gaia understands. If Neura adds new API methods or you want to use different ones, you'd add or modify definitions here. Pay attention to the `description` fields – they help Gaia choose the right tool!
 *   **`app.js`:**
-    *   The `callAnkrTool` function is the bridge to Ankr. When Gaia decides to use a tool, this function takes the tool name and arguments, constructs the actual Ankr API request, sends it, and processes the response. This is where you'd add the logic if you add new tools.
-    *   Notice the type conversions (e.g., `toBoolean`, `toNumber`) in `callAnkrTool`. These are important because LLMs might return parameters like booleans or numbers as strings.
+    *   The `callNeuraTool` function is the bridge to Neura. When Gaia decides to use a tool, this function takes the tool name and arguments, constructs the actual Neura API request, sends it, and processes the response. This is where you'd add the logic if you add new tools.
+    *   Notice the type conversions (e.g., `toBoolean`, `toNumber`) in `callNeuraTool`. These are important because LLMs might return parameters like booleans or numbers as strings.
     *   The `system` prompt given to Gaia in `runConversation` helps guide its behavior and how it should use the tools. You can tweak this!
 *   **Error Handling:** The current error handling is basic. For a production app, you'd want to make this more robust.
-*   **Supported Blockchains:** Check the `getBlockchainEnum()` in `ankrTools.js` and Ankr's documentation for the latest list of supported chains.
+*   **Supported Blockchains:** Check the `getBlockchainEnum()` in `NeuraTools.js` and Neura's documentation for the latest list of supported chains.
 
 ## Building Your Own Apps 💡
 
