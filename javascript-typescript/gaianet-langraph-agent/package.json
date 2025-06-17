@@ -1,0 +1,19 @@
+{
+  "name": "langraph-agent",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@langchain/anthropic": "^0.3.17",
+    "@langchain/core": "^0.3.44",
+    "@langchain/langgraph": "^0.2.63",
+    "@langchain/openai": "^0.5.5",
+    "dotenv": "^16.5.0"
+  }
+}
