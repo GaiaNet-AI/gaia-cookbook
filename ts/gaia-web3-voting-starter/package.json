@@ -1,0 +1,17 @@
+{
+  "name": "gaia-web3-voting-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:site": "pnpm --filter site dev",
+    "dev:blockchain": "pnpm --filter blockchain run node",
+    "build:site": "pnpm --filter site build",
+    "build:blockchain": "pnpm --filter blockchain run compile"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.4.1"
+}
