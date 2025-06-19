@@ -26,7 +26,7 @@ Gaia PDF RAG is a Retrieval-Augmented Generation (RAG) application that allows u
 
 Before running GaiaRAG, ensure you have:
 
-1. A local Gaia node running (Check this link to learn how to run your own local LLM: [https://docs.gaianet.ai/node-guide/quick-start](https://docs.gaianet.ai/node-guide/quick-starthttps://docs.gaianet.ai/node-guide/quick-start))
+1. A local Gaia node running (Check this link to learn how to run your own local LLM: [https://docs.gaianet.ai/node-guide/quick-start](https://docs.gaianet.ai/node-guide/quick-start)
 2. Qdrant server running
 3. Python 3.8+
 4. Required system libraries for PDF processing
