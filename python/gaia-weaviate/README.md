@@ -4,7 +4,7 @@
 
 A complete demonstration of how to use [Gaia](https://gaianet.ai) nodes as OpenAI-compatible inference endpoints combined with [Weaviate](https://weaviate.io) as a vector database, creating a powerful alternative to traditional centralized AI systems.
 
-[![Watch the video](https://i3.ytimg.com/vi/zf9_WFhySho/maxresdefault.jpg)](https://i3.ytimg.com/vi/zf9_WFhySho/maxresdefault.jpg)
+[![Watch the video](https://i3.ytimg.com/vi/zf9_WFhySho/maxresdefault.jpg)](https://youtu.be/zf9_WFhySho)
 
 ![image](https://github.com/user-attachments/assets/86868352-612a-4914-aea9-f53d8fb8e3c7)
 ![image](https://github.com/user-attachments/assets/dace81d3-d012-42dc-9dc5-b2c9486c00ad)
