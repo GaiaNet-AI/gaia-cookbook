@@ -1,0 +1,24 @@
+# Core dependencies for Gaia + Weaviate integration
+openai>=1.30.0
+weaviate-client>=4.15.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+
+# Optional: For enhanced logging and development
+rich>=13.0.0
+click>=8.1.0
+pydantic>=2.0.0
+
+# Optional: For data processing and analysis
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Optional: For async support (if needed)
+httpx>=0.24.0
+asyncio>=3.4.3
+
+# Development dependencies (uncomment if needed)
+# pytest>=7.4.0
+# pytest-asyncio>=0.21.0
+# black>=23.0.0
+# flake8>=6.0.0
