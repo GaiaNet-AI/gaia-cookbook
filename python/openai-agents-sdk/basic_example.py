@@ -1,13 +1,11 @@
 """
 Basic Chat Demo using OpenAI Agents SDK with Gaia's Node
 This demo shows a simple terminal-based chat interface.
-Fixed version with proper Ctrl+C handling.
 """
 
 from __future__ import annotations
 
 import asyncio
-import signal
 import sys
 from typing import Optional
 
@@ -15,7 +13,6 @@ from agents import Agent, Runner, set_tracing_disabled
 from agents.extensions.models.litellm_model import LitellmModel
 
 set_tracing_disabled(True)
-
 class GaiaChat:
     def __init__(self, base_url: str, api_key: str = "dummy"):
         """Initialize the Gaia chat client.
@@ -35,11 +32,6 @@ class GaiaChat:
                 base_url=base_url
             ),
         )
-        self._shutdown = False
-    
-    def shutdown(self):
-        """Signal the chat to shutdown gracefully."""
-        self._shutdown = True
     
     async def chat_loop(self):
         """Main chat loop for interactive conversation."""
@@ -47,17 +39,10 @@ class GaiaChat:
         print("Type 'quit', 'exit', or 'bye' to end the conversation")
         print("=" * 50)
         
-        while not self._shutdown:
+        while True:
             try:
-                # Get user input with timeout to check for shutdown
-                try:
-                    user_input = await asyncio.wait_for(
-                        asyncio.to_thread(input, "\n💬 You: "),
-                        timeout=1.0
-                    )
-                    user_input = user_input.strip()
-                except asyncio.TimeoutError:
-                    continue
+                # Get user input
+                user_input = input("\n💬 You: ").strip()
                 
                 # Check for exit commands
                 if user_input.lower() in ['quit', 'exit', 'bye', 'q']:
@@ -70,29 +55,18 @@ class GaiaChat:
                 # Show thinking indicator
                 print("🤖 Gaia Assistant: ", end="", flush=True)
                 
-                # Get response from agent with timeout
-                try:
-                    result = await asyncio.wait_for(
-                        Runner.run(self.agent, user_input),
-                        timeout=30.0
-                    )
-                    
-                    # Display response
-                    print(result.final_output)
-                    
-                except asyncio.TimeoutError:
-                    print("\n⏰ Request timed out. Please try again.")
-                except Exception as e:
-                    print(f"\n❌ Error: {e}")
-                    print("Please try again or type 'quit' to exit.")
+                # Get response from agent
+                result = await Runner.run(self.agent, user_input)
+                
+                # Display response
+                print(result.final_output)
                 
             except KeyboardInterrupt:
                 print("\n\n👋 Chat interrupted. Goodbye!")
                 break
             except Exception as e:
-                if not self._shutdown:
-                    print(f"\n❌ Unexpected error: {e}")
-                    print("Please try again or type 'quit' to exit.")
+                print(f"\n❌ Error: {e}")
+                print("Please try again or type 'quit' to exit.")
 
 
 async def main():
@@ -114,20 +88,9 @@ async def main():
     if not api_key:
         api_key = default_api_key
     
-    # Create chat instance
-    chat = GaiaChat(base_url, api_key)
-    
-    # Set up signal handler for graceful shutdown
-    def signal_handler():
-        print("\n🛑 Shutting down gracefully...")
-        chat.shutdown()
-    
-    # Register signal handlers
-    for sig in (signal.SIGTERM, signal.SIGINT):
-        signal.signal(sig, lambda s, f: signal_handler())
-    
     try:
         # Create and start chat
+        chat = GaiaChat(base_url, api_key)
         await chat.chat_loop()
         
     except Exception as e:
