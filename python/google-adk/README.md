@@ -138,5 +138,5 @@ Make sure all required environment variables are set in your `.env` file:
 ## 📖 Learn More
 
 - [Gaia Network Documentation](https://docs.gaianet.ai/)
-- [Google ADK Documentation](https://ai.google.dev/adk)
+- [Google ADK Documentation](https://google.github.io/adk-docs/)
 - [LiteLLM Documentation](https://docs.litellm.ai/)
