@@ -27,7 +27,7 @@ class GaiaChat:
             You can help with various tasks including answering questions, providing explanations, 
             helping with code, and general conversation. Be friendly and informative.""",
             model=LitellmModel(
-                model="openai/gpt-3.5-turbo",  # Use OpenAI-compatible format
+                model="openai/Gemma-3.4B-IT",  # Use OpenAI-compatible format
                 api_key=api_key,
                 base_url=base_url
             ),
