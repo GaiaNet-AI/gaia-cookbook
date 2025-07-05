@@ -1,0 +1,5 @@
+google-adk
+litellm
+python-dotenv
+requests
+aiohttp
