@@ -1,14 +1,12 @@
 """
 Weather Tool Demo using OpenAI Agents SDK with Gaia's Node
 This demo shows tool calling capabilities with OpenWeatherMap API.
-Fixed version with proper Ctrl+C handling.
 """
 
 from __future__ import annotations
 
 import asyncio
 import json
-import signal
 import sys
 from typing import Optional
 
@@ -17,7 +15,6 @@ from agents import Agent, Runner, function_tool, set_tracing_disabled
 from agents.extensions.models.litellm_model import LitellmModel
 
 set_tracing_disabled(True)
-
 # OpenWeatherMap API tool
 @function_tool
 async def get_weather(city: str, country_code: Optional[str] = None) -> str:
@@ -181,11 +178,6 @@ class GaiaWeatherAgent:
             ),
             tools=[get_weather, get_forecast],
         )
-        self._shutdown = False
-    
-    def shutdown(self):
-        """Signal the agent to shutdown gracefully."""
-        self._shutdown = True
     
     async def chat_loop(self):
         """Main chat loop for weather queries."""
@@ -194,17 +186,9 @@ class GaiaWeatherAgent:
         print("Type 'quit' to exit")
         print("=" * 60)
         
-        while not self._shutdown:
+        while True:
             try:
-                # Get user input with timeout to check for shutdown
-                try:
-                    user_input = await asyncio.wait_for(
-                        asyncio.to_thread(input, "\n🌤️  Ask about weather: "),
-                        timeout=1.0
-                    )
-                    user_input = user_input.strip()
-                except asyncio.TimeoutError:
-                    continue
+                user_input = input("\n🌤️  Ask about weather: ").strip()
                 
                 if user_input.lower() in ['quit', 'exit', 'bye', 'q']:
                     print("\n👋 Thanks for using Gaia Weather Assistant!")
@@ -216,27 +200,16 @@ class GaiaWeatherAgent:
                 print("🤖 Gaia Assistant: ", end="", flush=True)
                 
                 # Run the agent with tools
-                try:
-                    result = await asyncio.wait_for(
-                        Runner.run(self.agent, user_input),
-                        timeout=30.0
-                    )
-                    
-                    print(result.final_output)
-                    
-                except asyncio.TimeoutError:
-                    print("\n⏰ Request timed out. Please try again.")
-                except Exception as e:
-                    print(f"\n❌ Error: {e}")
-                    print("Please try again or type 'quit' to exit.")
+                result = await Runner.run(self.agent, user_input)
+                
+                print(result.final_output)
                 
             except KeyboardInterrupt:
                 print("\n\n👋 Weather chat interrupted. Goodbye!")
                 break
             except Exception as e:
-                if not self._shutdown:
-                    print(f"\n❌ Unexpected error: {e}")
-                    print("Please try again or type 'quit' to exit.")
+                print(f"\n❌ Error: {e}")
+                print("Please try again or type 'quit' to exit.")
 
 
 async def main():
@@ -266,20 +239,9 @@ async def main():
         print("Get a free API key at: https://openweathermap.org/api")
         sys.exit(1)
     
-    # Create weather agent instance
-    weather_agent = GaiaWeatherAgent(base_url, api_key, weather_api_key)
-    
-    # Set up signal handler for graceful shutdown
-    def signal_handler():
-        print("\n🛑 Shutting down gracefully...")
-        weather_agent.shutdown()
-    
-    # Register signal handlers
-    for sig in (signal.SIGTERM, signal.SIGINT):
-        signal.signal(sig, lambda s, f: signal_handler())
-    
     try:
         # Create and start weather agent
+        weather_agent = GaiaWeatherAgent(base_url, api_key, weather_api_key)
         await weather_agent.chat_loop()
         
     except Exception as e:
