@@ -2,6 +2,8 @@
 
 This repository demonstrates how to integrate **Gaia's decentralized AI network** with **OpenAI's Agents SDK** to build powerful, distributed AI applications with tool calling capabilities.
 
+![gaia-openai-agents-sdk-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/908f35fb-6586-4019-a0e9-48355a7d5089)
+
 ## 🌟 What is This Integration?
 
 **Gaia Nodes** provide decentralized AI inference through OpenAI-compatible APIs, while **OpenAI's Agents SDK** offers a robust framework for building AI agents with tool calling, memory, and workflow capabilities. Together, they enable:
