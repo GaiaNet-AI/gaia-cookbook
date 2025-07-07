@@ -2,6 +2,17 @@
 
 This project demonstrates how to combine **Microsoft's AutoGen** framework with **Gaia's decentralized AI nodes** to build powerful, privacy-preserving AI applications that don't depend on big tech companies.
 
+## Screenshots
+
+![image](https://github.com/user-attachments/assets/3d145a17-80a3-49d1-a886-33a75ea71ef5)
+
+![image](https://github.com/user-attachments/assets/6134dee2-3caa-4921-9235-9b9e2327bf6f)
+
+![image](https://github.com/user-attachments/assets/142a1ab2-0de4-469b-93f5-e16404a2e780)
+
+https://github.com/user-attachments/assets/42221faf-4492-4609-b316-9a2bdee7d8b8
+
+
 ## Why Gaia + AutoGen? 🚀
 
 **AutoGen** is Microsoft's framework for creating multi-agent AI systems where different AI "experts" can collaborate on complex tasks. **Gaia** provides the decentralized infrastructure to run these AI models without depending on centralized services.
