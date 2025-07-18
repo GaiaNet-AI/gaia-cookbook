@@ -2,6 +2,10 @@
 
 This example demonstrates how to build a simple Document Question Answering (QA) system using LangChain, integrated with your custom Gaia Node for powerful Language Model (LLM) and Embedding capabilities, and **ChromaDB** for local vector database persistence.
 
+
+https://github.com/user-attachments/assets/964ec4fd-03bf-4158-a82e-871ed1c228e3
+
+
 ## Introduction
 
 This repository provides a practical example of a Retrieval-Augmented Generation (RAG) pipeline. It allows you to ask questions about a text document (`state_of_the_union.txt` by default), retrieve relevant information from it using a vector database, and then generate an answer using a Large Language Model. The key distinction here is the use of a self-hosted **Gaia Node** for LLM and embeddings, coupled with **ChromaDB** for efficient and persistent vector storage locally.
