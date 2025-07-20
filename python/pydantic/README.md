@@ -4,6 +4,8 @@ This example is part of our AI Agent Cookbook and demonstrates how to use a loca
 
 ![chat responses from basic and tools](example-response.png)
 
+https://github.com/user-attachments/assets/8e462dc2-62f8-47a0-bd7f-ab788fed066c
+
 ## 🔍 What is Pydantic AI?
 
 Pydantic AI is a Python framework for building modern AI applications that are reliable, type-safe, and predictable. It uses Pydantic models under the hood to guarantee that the outputs of Large Language Models (LLMs) conform to a specific, structured format.
