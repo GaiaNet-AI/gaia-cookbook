@@ -1,68 +1,32 @@
 import os
-import requests
-from typing import List
 from dotenv import load_dotenv
-from pydantic import BaseModel
+from pydantic_ai import Agent
+from pydantic_ai.models.openai import OpenAIModel
+from pydantic_ai.providers.openai import OpenAIProvider
 from spinner import Spinner
 
-# Load environment
+# Load .env variables
 load_dotenv()
-GAIA_API_BASE = os.getenv("GAIA_API_BASE")
-GAIA_MODEL = os.getenv("GAIA_MODEL")
+model_name = os.getenv("GAIA_MODEL")
+base_url = os.getenv("GAIA_API_BASE")
+api_key = os.getenv("GAIA_API_KEY")  # Optional if your local Gaia node doesn't require auth
 
-if not GAIA_API_BASE or not GAIA_MODEL:
-    raise EnvironmentError("GAIA_API_BASE and GAIA_MODEL must be set in the .env file")
+# Define model using OpenAI-compatible interface
+model = OpenAIModel(
+    model_name,
+    provider=OpenAIProvider(base_url=base_url, api_key=api_key)
+)
 
-
-# ----- Pydantic Models -----
-
-class Message(BaseModel):
-    role: str
-    content: str
-
-
-class ChatRequest(BaseModel):
-    model: str
-    messages: List[Message]
-    temperature: float = 0.7
-
-
-class Choice(BaseModel):
-    message: Message
-    finish_reason: str
-
-
-class ChatResponse(BaseModel):
-    choices: List[Choice]
-
-
-# ----- Chat with system + user role -----
-
-def chat_with_gaia(user_prompt: str, system_prompt: str = None) -> str:
-    messages = []
-    if system_prompt:
-        messages.append(Message(role="system", content=system_prompt))
-    messages.append(Message(role="user", content=user_prompt))
-
-    request_data = ChatRequest(
-        model=GAIA_MODEL,
-        messages=messages
-    )
-
-    with Spinner("Thinking..."):
-        response = requests.post(
-            f"{GAIA_API_BASE}/chat/completions",
-            json=request_data.model_dump()
-        )
-
-    response.raise_for_status()
-    result = ChatResponse(**response.json())
-    return result.choices[0].message.content
-
-
-# ----- Example -----
+# Create agent
+agent = Agent(
+    model=model,
+    system_prompt="You are a helpful assistant. Answer clearly and concisely."
+)
 
 if __name__ == "__main__":
-    system = "You are a helpful and precise assistant."
-    user = "Explain gravity like I'm 10 years old."
-    print("AI:", chat_with_gaia(user, system))
+    prompt = "Explain how rainbows form."
+
+    with Spinner("Calling Gaia..."):
+        result = agent.run_sync(prompt)
+
+    print("AI:", result.output)

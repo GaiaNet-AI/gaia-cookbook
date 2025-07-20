@@ -1,86 +1,92 @@
 import os
-import json
-import requests
+import httpx
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
+from pydantic_ai import Agent
+from pydantic_ai.models.openai import OpenAIModel
+from pydantic_ai.providers.openai import OpenAIProvider
+from pydantic_ai.tools import Tool
 from spinner import Spinner
 
-# Load env vars
+# Load environment variables from .env file
 load_dotenv()
-GAIA_API_BASE = os.getenv("GAIA_API_BASE")
-GAIA_MODEL = os.getenv("GAIA_MODEL")
 
-if not GAIA_API_BASE or not GAIA_MODEL:
-    raise EnvironmentError("GAIA_API_BASE and GAIA_MODEL must be set in the .env file")
+# Define a Pydantic model for the tool's output
+class WeatherData(BaseModel):
+    """Represents the weather data for a specific location."""
+    location: str = Field(..., description="The city and region of the weather reading.")
+    temperature_celsius: float = Field(..., description="The current temperature in Celsius.")
+    feels_like_celsius: float = Field(..., description="The 'feels like' temperature in Celsius.")
+    condition: str = Field(..., description="A description of the current weather condition.")
+    wind_kph: float = Field(..., description="The current wind speed in kilometers per hour.")
 
+# Define the tool function to call the wttr.in service
+def get_current_weather(city: str) -> WeatherData:
+    """
+    Gets the current weather for a specified city using the wttr.in service.
 
-# ----- Tool schema -----
-
-class GetWeatherInput(BaseModel):
-    location: str = Field(..., description="The city name to get weather for")
-
-
-# ----- Simulated tool function -----
-
-def get_weather(location: str) -> str:
-    return f"The weather in {location} is currently sunny and 27°C."  # Simulated
-
-
-# ----- Tool-calling chat -----
-
-def chat_with_tool_call(prompt: str):
-    tools = [{
-        "type": "function",
-        "function": {
-            "name": "get_weather",
-            "description": "Get the current weather in a given location.",
-            "parameters": GetWeatherInput.model_json_schema()
-        }
-    }]
-
-    messages = [{"role": "user", "content": prompt}]
-    payload = {
-        "model": GAIA_MODEL,
-        "messages": messages,
-        "tools": tools,
-        "tool_choice": "auto"
-    }
-
-    # Initial model call
-    with Spinner("Calling Gaia..."):
-        res1 = requests.post(f"{GAIA_API_BASE}/chat/completions", json=payload)
-    res1.raise_for_status()
-    data1 = res1.json()
-
-    tool_calls = data1["choices"][0]["message"].get("tool_calls", [])
-    if tool_calls:
-        tool_call = tool_calls[0]
-        args = json.loads(tool_call["function"]["arguments"])
-        result = get_weather(**args)
-
-        messages.extend([
-            {"role": "assistant", "tool_calls": [tool_call]},
-            {
-                "role": "tool",
-                "tool_call_id": tool_call["id"],
-                "name": tool_call["function"]["name"],
-                "content": result
-            }
-        ])
-
-        with Spinner("Waiting for AI response..."):
-            res2 = requests.post(f"{GAIA_API_BASE}/chat/completions", json={
-                "model": GAIA_MODEL,
-                "messages": messages
-            })
-        res2.raise_for_status()
-        return res2.json()["choices"][0]["message"]["content"]
-    else:
-        return data1["choices"][0]["message"]["content"]
+    Args:
+        city: The name of the city (e.g., "Paris", "New York").
+    """
+    url = f"https://wttr.in/{city}?format=j1"
+    try:
+        response = httpx.get(url)
+        response.raise_for_status()
+        data = response.json()
+        current_condition = data['current_condition'][0]
+        nearest_area = data['nearest_area'][0]
+        return WeatherData(
+            location=f"{nearest_area['areaName'][0]['value']}, {nearest_area['region'][0]['value']}",
+            temperature_celsius=float(current_condition['temp_C']),
+            feels_like_celsius=float(current_condition['FeelsLikeC']),
+            condition=current_condition['weatherDesc'][0]['value'],
+            wind_kph=float(current_condition['windspeedKmph']),
+        )
+    except httpx.HTTPStatusError as e:
+        return f"Error fetching weather data: {e.response.status_code} for city '{city}'."
+    except (KeyError, IndexError):
+        return f"Error parsing weather data for city '{city}'. The location might not be found."
+    except Exception as e:
+        return f"An unexpected error occurred: {e}"
 
 
-# ----- Example -----
+# Configure Pydantic AI to use the GAIA Node
+gaia_model_name = os.getenv("GAIA_MODEL")
+gaia_api_base = os.getenv("GAIA_API_BASE")
+gaia_api_key = os.getenv("GAIA_API_KEY")
 
+if not all([gaia_model_name, gaia_api_base, gaia_api_key]):
+    raise ValueError(
+        "Please set the GAIA_MODEL, GAIA_API_BASE, and GAIA_API_KEY environment variables."
+    )
+
+# Correctly initialize the model provider
+provider = OpenAIProvider(base_url=gaia_api_base, api_key=gaia_api_key)
+
+# Define the model instance
+model = OpenAIModel(gaia_model_name, provider=provider)
+
+# Create an agent and register the tool
+weather_tool = Tool(get_current_weather)
+agent = Agent(model=model, tools=[weather_tool])
+
+# Run the agent with sample queries
 if __name__ == "__main__":
-    reply = chat_with_tool_call("What's the weather like in Tokyo?")
-    print("AI:", reply)
+    prompt = "What's the weather like in Berlin?"
+    print(f"User: {prompt}")
+
+    # 2. Use the Spinner as a context manager around the agent call
+    with Spinner("Calling Gaia for Berlin's weather..."):
+        result = agent.run_sync(prompt)
+
+    # 3. The result is printed after the spinner finishes
+    print(f"Agent: {result.output}")
+
+    # --- Second example ---
+    prompt_oslo = "How about in Oslo?"
+    print(f"\nUser: {prompt_oslo}")
+
+    with Spinner("Calling Gaia for Oslo's weather..."):
+        result_oslo = agent.run_sync(prompt_oslo)
+
+    print(f"Agent: {result_oslo.output}")

@@ -1,45 +1,46 @@
 # 🧠 Gaia + Pydantic AI Agent Examples
 
-This example is part of our AI Agent Cookbook and demonstrates how to use a local Gaia node (OpenAI-compatible) as the backend for structured AI agents powered by the Pydantic framework.
+This example is part of our AI Agent Cookbook and demonstrates how to use a local Gaia node (OpenAI-compatible) as the LLM backend for powerful AI agents built with the **Pydantic AI** framework.
 
 ![chat responses from basic and tools](example-response.png)
 
-## 🔍 What is Pydantic?
+## 🔍 What is Pydantic AI?
 
-Pydantic is a Python library for data validation and settings management using Python type annotations. It's particularly useful when:
+Pydantic AI is a Python framework for building modern AI applications that are reliable, type-safe, and predictable. It uses Pydantic models under the hood to guarantee that the outputs of Large Language Models (LLMs) conform to a specific, structured format.
 
-- You want type-safe models for inputs/outputs.
-- You want clean JSON serialization.
-- You're working with APIs (like OpenAI or Gaia) that return structured data.
+It's particularly useful when you want to:
+- Build agents that can reliably call tools (functions).
+- Enforce a specific JSON schema for LLM responses.
+- Get structured, validated data from unstructured text.
+- Create a clear separation between your business logic and the AI model.
 
 ## 🚀 What This Example Shows
 
 ✅ **1. `basic.py` – Simple Chat Inference with Gaia**
-- Uses Pydantic to define OpenAI-style chat schema (model, messages, temperature).
-- Supports system and user messages.
-- Sends a prompt to a locally running Gaia node.
-- Displays a terminal spinner animation while waiting for response.
+- Uses the `pydantic-ai` `Agent` class to manage a simple conversation.
+- Configures the agent with a system prompt and an OpenAI-compatible model pointing to a local Gaia node.
+- Displays a terminal spinner while waiting for the response from Gaia.
 
-✅ **2. `tools.py` – Tool (Function) Calling with Gaia**
-- Demonstrates OpenAI-style function calling.
-- Defines a sample `get_weather(location)` tool with a Pydantic schema.
-- Sends tool schema to Gaia; Gaia chooses to invoke it.
-- Simulates the tool's return and feeds it back into the model for final reasoning.
+✅ **2. `tools.py` – Robust Tool-Calling with Gaia**
+- Demonstrates how to create a tool from a simple Python function (`get_current_weather`).
+- The tool's inputs and outputs are automatically inferred from its type annotations.
+- The `Agent` transparently handles the entire tool-calling process: presenting the tool to the LLM, parsing its decision, executing the function, and sending the result back for final analysis.
+- The tool in this example fetches **live, real-world weather data** from an external service (`wttr.in`), not mock data.
 
 ## 📦 Project Setup
 
 ### 🔧 Requirements
 
-Install dependencies:
+Install the required dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-Create a `.env` file:
+Create a `.env` file in the project root with your Gaia node configuration:
 ```env
 GAIA_API_BASE=http://localhost:8000/v1
-GAIA_MODEL=gpt-4  # or whatever model name your Gaia node supports
-```
+GAIA_MODEL=your-model-name
+GAIA_API_KEY=your-api-key-if-needed```
 
 ### 🧪 Running the Examples
 
@@ -49,8 +50,8 @@ python basic.py
 ```
 You should see something like:
 ```
-Thinking... |/-\Done!
-AI: Gravity is the force that pulls objects toward each other...
+Calling Gaia... |/-\Done!
+AI: Rainbows form when sunlight is refracted and dispersed by water droplets (like rain or mist) in the Earth's atmosphere...
 ```
 
 #### 🔹 Tool Calling
@@ -59,38 +60,25 @@ python tools.py
 ```
 Output:
 ```bash
-Calling Gaia... |/-\Done!
-Waiting for AI response... |/-\Done!
-AI: The weather in Tokyo is currently sunny and 27°C.
+User: What's the weather like in Berlin?
+Calling Gaia for Berlin's weather... |/-\Done!
+Agent: The weather in Berlin, Germany is currently Partly cloudy with a temperature of 18.0°C, which feels like 17.0°C. The wind is blowing at 17.0 km/h.
+
+User: How about in Oslo?
+Calling Gaia for Oslo's weather... |/-\Done!
+Agent: In Oslo, Norway, the weather is currently Clear. The temperature is 15.0°C, but it feels like 13.0°C. The wind speed is 13.0 km/h.
 ```
 
 ## 🧠 Why This Matters for AI Agent Devs
 
-This example is a template for building your own agents with:
+Using Pydantic AI with a local Gaia node provides a powerful, open-source stack for building your own agents. This example serves as a template for creating reliable applications with:
 
-✅ Local inference using your own models via Gaia.
-✅ Structured input/output using Pydantic.
-✅ Full compatibility with OpenAI tool/function-calling workflows.
-✅ Custom logic for executing tools and chaining them back into the agent loop.
+- ✅ **Local Inference**: Run agents on your own hardware using your own models via Gaia.
+- ✅ **Reliable Outputs**: Leverage Pydantic models to get structured, validated data from the LLM every time.
+- ✅ **Effortless Tool Creation**: Turn any Python function into a tool the AI can use, with automatic schema generation.
+- ✅ **Simplified Agent Logic**: The `Agent` class abstracts away the complex multi-step tool-calling loop.
 
 **Perfect for:**
-- Fast prototyping.
-- Local-first AI dev.
-- Open-source agent runtime integrations.
-
-## 📁 Files Overview
-
-| File               | Description                                           |
-| ------------------ | ----------------------------------------------------- |
-| `basic.py`         | Basic system+user prompt chat with Gaia + Pydantic    |
-| `tools.py`         | Tool/function-calling example with `get_weather()`    |
-| `spinner.py`       | Simple terminal spinner while waiting for API         |
-| `.env`             | Gaia node URL and model name config                   |
-| `requirements.txt` | Python deps (requests, pydantic, dotenv)              |
-
-## ✅ Next Steps
-
-- Add more tools (functions).
-- Integrate with FastAPI or CLI agent frameworks.
-- Replace simulated tool logic with real APIs (e.g., weather, search).
-- Extend with memory or multi-agent orchestration.
+- Fast, local-first prototyping.
+- Building open-source agent runtimes.
+- Creating production systems where data validation and reliability are critical.

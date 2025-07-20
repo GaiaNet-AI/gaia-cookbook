@@ -1,3 +1,4 @@
 requests
-pydantic>=2.0
+httpx
+pydantic_ai
 python-dotenv
