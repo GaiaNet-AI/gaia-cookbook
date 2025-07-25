@@ -4,7 +4,7 @@ import { createOpenAI} from "@ai-sdk/openai";
 import { comprehensiveWorkflow } from "./workflows";
 
 const openai = createOpenAI({
-  baseURL: "https://0xf8967cce76d3caef3014a106ad0dd20340a062ee.gaia.domains/v1",
+  baseURL: process.env.GAIA_BASE_URL // should be a string,
   apiKey: "gaia-api-key",
 });
 

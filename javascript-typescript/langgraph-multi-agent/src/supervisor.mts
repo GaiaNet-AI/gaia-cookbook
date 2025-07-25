@@ -46,7 +46,7 @@ const llm = new ChatOpenAI({
   model: "Qwen3-8B-Q5_K_M",
   configuration: {
     apiKey: process.env.GAIA_API_KEY,
-    baseURL: "https://qwen7b.gaia.domains/v1",
+    baseURL: process.env.GAIA_BASE_URL,
   },
 });
 
