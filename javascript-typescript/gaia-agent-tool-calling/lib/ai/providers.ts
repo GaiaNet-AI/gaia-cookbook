@@ -8,16 +8,10 @@ import { xai } from '@ai-sdk/xai';
 import {createOpenAI} from '@ai-sdk/openai';
 import { isTestEnvironment } from '../constants';
 
-import {
-  artifactModel,
-  chatModel,
-  reasoningModel,
-  titleModel,
-} from './models.test';
 
 const openai = createOpenAI({
   apiKey: "Gaia",
-  baseURL: "https://0x00cfd37ffb149a55f031588da81110ab085fd9b6.gaia.domains/v1",
+  baseURL: process.env.GAIA_BASE_URL,
 })
   
 export const myProvider =
