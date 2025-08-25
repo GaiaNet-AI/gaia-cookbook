@@ -3,6 +3,9 @@
 
 This example demonstrates how to use Haystack with a [Gaia Node](https://docs.gaianet.ai/?ref=haystack) to create an AI agent that can perform web searches and answer questions using current information.
 
+<img width="1001" height="291" alt="image" src="https://github.com/user-attachments/assets/e267a3f6-afc4-4680-8731-897d6b9334fc" />
+
+
 ## What is Haystack?
 
 [Haystack](https://haystack.deepset.ai/) is an open-source framework by deepset for building production-ready LLM applications, including retrieval-augmented generation (RAG) pipelines, agents, and question-answering systems. It provides:
