@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaia × DIA Data - AI-Powered Cross-Asset Analysis</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Critical CSS for layout */
+        .max-w-7xl { max-width: 80rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+        .grid { display: grid; }
+        .lg\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .md\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .lg\\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .gap-4 { gap: 1rem; }
+        .gap-6 { gap: 1.5rem; }
+        .lg\\:col-span-1 { grid-column: span 1 / span 1; }
+        .lg\\:col-span-2 { grid-column: span 2 / span 2; }
+        .bg-white { background-color: #ffffff; }
+        .bg-gray-50 { background-color: #f9fafb; }
+        .bg-gray-100 { background-color: #f3f4f6; }
+        .bg-blue-600 { background-color: #2563eb; }
+        .bg-blue-700 { background-color: #1d4ed8; }
+        .text-white { color: #ffffff; }
+        .text-gray-800 { color: #1f2937; }
+        .text-gray-600 { color: #4b5563; }
+        .text-gray-500 { color: #6b7280; }
+        .text-blue-600 { color: #2563eb; }
+        .rounded-lg { border-radius: 0.5rem; }
+        .rounded-md { border-radius: 0.375rem; }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+        .border { border-width: 1px; border-color: #d1d5db; }
+        .border-b { border-bottom-width: 1px; border-color: #d1d5db; }
+        .border-t { border-top-width: 1px; border-color: #d1d5db; }
+        .p-4 { padding: 1rem; }
+        .p-2 { padding: 0.5rem; }
+        .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+        .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mt-1 { margin-top: 0.25rem; }
+        .mt-6 { margin-top: 1.5rem; }
+        .mr-2 { margin-right: 0.5rem; }
+        .mr-3 { margin-right: 0.75rem; }
+        .flex { display: flex; }
+        .flex-1 { flex: 1 1 0%; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-end { justify-content: flex-end; }
+        .justify-start { justify-content: flex-start; }
+        .justify-center { justify-content: center; }
+        .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+        .text-xs { font-size: 0.75rem; line-height: 1rem; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .font-medium { font-weight: 500; }
+        .w-full { width: 100%; }
+        .h-full { height: 100%; }
+        .space-y-4 > * + * { margin-top: 1rem; }
+        .space-y-3 > * + * { margin-top: 0.75rem; }
+        .overflow-y-auto { overflow-y: auto; }
+        .cursor-pointer { cursor: pointer; }
+        .transition-colors { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+        .hover\\:bg-blue-700:hover { background-color: #1d4ed8; }
+        .focus\\:outline-none:focus { outline: 2px solid transparent; outline-offset: 2px; }
+        .focus\\:ring-2:focus { box-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color); }
+        .focus\\:ring-blue-500:focus { --tw-ring-color: #3b82f6; }
+        .disabled\\:bg-gray-400:disabled { background-color: #9ca3af; }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .max-w-3xl { max-width: 48rem; }
+        
+        @media (min-width: 768px) {
+            .md\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .md\\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        }
+        
+        @media (min-width: 1024px) {
+            .lg\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .lg\\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            .lg\\:col-span-2 { grid-column: span 2 / span 2; }
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .message-animation {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .loading-dots {
+            display: inline-block;
+        }
+        
+        .loading-dots::after {
+            content: '';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+        
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+        
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        .status-connected { background-color: #10b981; }
+        .status-disconnected { background-color: #ef4444; }
+        .status-connecting { 
+            background-color: #f59e0b; 
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .tool-call-badge {
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-right: 4px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <div class="gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold flex items-center">
+                        <i class="fas fa-robot mr-3"></i>
+                        Gaia × DIA Data Integration
+                    </h1>
+                    <p class="text-blue-100 mt-1">AI-Powered Cross-Asset Financial Analysis with Tool Calling</p>
+                </div>
+                <div class="text-right">
+                    <div class="flex items-center text-sm">
+                        <span class="status-indicator" id="connectionStatus"></span>
+                        <span id="connectionText">Disconnected</span>
+                    </div>
+                    <div class="text-xs text-blue-200 mt-1">
+                        <i class="fas fa-server mr-1"></i>
+                        <span id="currentModel">No model selected</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-6">
+        <!-- Quick Action Cards -->
+        <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
+            <div class="bg-white rounded-lg p-4 shadow-sm border card-hover cursor-pointer" onclick="sendQuickPrompt('What is the current price of Bitcoin and the EUR-USD exchange rate?')">
+                <h3 class="font-semibold text-gray-800 mb-2">💰💱 Crypto + Forex</h3>
+                <p class="text-sm text-gray-600">BTC price and EUR-USD rate</p>
+            </div>
+            
+            <div class="bg-white rounded-lg p-4 shadow-sm border card-hover cursor-pointer" onclick="sendQuickPrompt('What is the current price of gold?')">
+                <h3 class="font-semibold text-gray-800 mb-2">🥇 Gold Price</h3>
+                <p class="text-sm text-gray-600">XAU-USD spot price</p>
+            </div>
+            
+            <div class="bg-white rounded-lg p-4 shadow-sm border card-hover cursor-pointer" onclick="sendQuickPrompt('What is the current price of IVV ETF?')">
+                <h3 class="font-semibold text-gray-800 mb-2">📈 S&P 500 ETF</h3>
+                <p class="text-sm text-gray-600">IVV ETF price</p>
+            </div>
+            
+            <div class="bg-white rounded-lg p-4 shadow-sm border card-hover cursor-pointer" onclick="sendQuickPrompt('Show me the current value of a diversified portfolio containing: 0.5 BTC, 1000 EUR, 1 oz gold, and 10 IVV ETF shares')">
+                <h3 class="font-semibold text-gray-800 mb-2">💼 Portfolio Value</h3>
+                <p class="text-sm text-gray-600">Multi-asset calculation</p>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-6">
+            <!-- Configuration Panel -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-lg border">
+                    <div class="p-4 border-b">
+                        <h2 class="text-lg font-semibold flex items-center">
+                            <i class="fas fa-cog mr-2 text-blue-600"></i>
+                            Gaia Node Configuration
+                        </h2>
+                    </div>
+                    <div class="p-4 space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Gaia Node URL
+                            </label>
+                            <input 
+                                type="text" 
+                                id="gaiaNodeUrl" 
+                                placeholder="http://localhost:8080"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                value=""
+                                onchange="fetchAndPopulateModels()" {{-- Added onchange listener --}}
+                            >
+                            <p class="text-xs text-gray-500 mt-1">Enter your Gaia Node API endpoint</p>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Model
+                            </label>
+                            <select 
+                                id="modelSelect" 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                onchange="document.getElementById('currentModel').textContent = this.value || 'No model selected';" {{-- Added onchange listener --}}
+                            >
+                                {{-- Options will be populated dynamically by JavaScript --}}
+                                <option value="">Loading models...</option> 
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                API Key (Optional)
+                            </label>
+                            <input 
+                                type="password" 
+                                id="apiKey" 
+                                placeholder="Enter API key if required"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                value=""
+                                onchange="fetchAndPopulateModels()" {{-- Added onchange listener --}}
+                            >
+                            <p class="text-xs text-gray-500 mt-1">Leave empty if not required by your Gaia Node</p>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Temperature: <span id="tempValue">0.7</span>
+                            </label>
+                            <input 
+                                type="range" 
+                                id="temperature" 
+                                min="0" 
+                                max="1" 
+                                step="0.1" 
+                                value="0.7"
+                                class="w-full"
+                                oninput="document.getElementById('tempValue').textContent = this.value"
+                            >
+                        </div>
+                        
+                        <button 
+                            onclick="testConnection()" 
+                            class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors"
+                            id="testButton"
+                        >
+                            <i class="fas fa-plug mr-2"></i>
+                            Test Connection
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Available Tools -->
+                <div class="bg-white rounded-lg shadow-lg border mt-6">
+                    <div class="p-4 border-b">
+                        <h2 class="text-lg font-semibold flex items-center">
+                            <i class="fas fa-tools mr-2 text-green-600"></i>
+                            Available DIA Data Tools
+                        </h2>
+                    </div>
+                    <div class="p-4">
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-start">
+                                <i class="fas fa-bitcoin text-orange-500 mt-1 mr-2"></i>
+                                <div>
+                                    <div class="font-medium">Cryptocurrency</div>
+                                    <div class="text-gray-600">Real-time crypto prices (BTC, ETH, SOL, etc.)</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-exchange-alt text-blue-500 mt-1 mr-2"></i>
+                                <div>
+                                    <div class="font-medium">Forex</div>
+                                    <div class="text-gray-600">Currency rates (EUR-USD, GBP-USD, etc.)</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-coins text-yellow-500 mt-1 mr-2"></i>
+                                <div>
+                                    <div class="font-medium">Commodities</div>
+                                    <div class="text-gray-600">Gold, silver, copper spot prices</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-chart-area text-purple-500 mt-1 mr-2"></i>
+                                <div>
+                                    <div class="font-medium">ETFs</div>
+                                    <div class="text-gray-600">S&P 500, World, Emerging Markets</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-pie-chart text-green-500 mt-1 mr-2"></i>
+                                <div>
+                                    <div class="font-medium">Portfolio Analytics</div>
+                                    <div class="text-gray-600">Multi-asset portfolio calculations</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Interface -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-lg shadow-lg border h-full flex flex-col">
+                    <!-- Chat Header -->
+                    <div class="p-4 border-b bg-gray-50 rounded-t-lg">
+                        <h2 class="text-lg font-semibold flex items-center">
+                            <i class="fas fa-comments mr-2 text-blue-600"></i>
+                            AI Chat Interface
+                        </h2>
+                        <p class="text-sm text-gray-600">Ask questions about financial data across all asset classes</p>
+                    </div>
+
+                    <!-- Chat Messages -->
+                    <div class="flex-1 p-4 overflow-y-auto" id="chatMessages" style="min-height: 400px; max-height: 600px;">
+                        <div class="text-center text-gray-500 py-8">
+                            <i class="fas fa-robot text-4xl text-gray-300 mb-4"></i>
+                            <div class="text-lg font-medium">Welcome to Gaia × DIA Data Integration!</div>
+                            <div class="text-sm">Configure your Gaia Node and start asking questions about financial data.</div>
+                        </div>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div class="p-4 border-t bg-gray-50">
+                        <div class="flex gap-2">
+                            <input 
+                                type="text" 
+                                id="messageInput" 
+                                placeholder="Ask about crypto, forex, commodities, ETFs, or portfolio analysis..."
+                                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                onkeypress="handleKeyPress(event)"
+                            >
+                            <button 
+                                onclick="sendMessage()" 
+                                class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400"
+                                id="sendButton"
+                            >
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        <div class="text-xs text-gray-500 mt-2 text-center">
+                            Powered by Gaia Nodes with OpenAI-compatible APIs and DIA Data
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isLoading = false;
+        let connectionStatus = 'disconnected';
+        let envConfig = {};
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            updateConnectionStatus('disconnected');
+            loadEnvironmentConfig();
+        });
+
+        async function loadEnvironmentConfig() {
+            try {
+                const response = await fetch('/api/config');
+                envConfig = await response.json();
+                
+                // Set default values from environment
+                document.getElementById('gaiaNodeUrl').value = envConfig.defaultGaiaNodeUrl || 'http://localhost:8080';
+                
+                // Update current model display and fetch models
+                updateConnectionStatus('disconnected');
+                await fetchAndPopulateModels(); // Call to fetch models after URL is set
+                
+                console.log('Environment config loaded:', envConfig);
+            } catch (error) {
+                console.error('Failed to load environment config:', error);
+                // Set fallback defaults and still try to fetch models with default URL
+                document.getElementById('gaiaNodeUrl').value = 'http://localhost:8080';
+                await fetchAndPopulateModels(); // Try with default URL
+            }
+        }
+
+        async function fetchAndPopulateModels() {
+            const gaiaNodeUrl = document.getElementById('gaiaNodeUrl').value.trim();
+            const apiKey = document.getElementById('apiKey').value.trim();
+            const modelSelect = document.getElementById('modelSelect');
+
+            modelSelect.innerHTML = '<option value="">Loading models...</option>'; // Show loading state
+            modelSelect.disabled = true;
+
+            try {
+                const headers = {};
+                if (apiKey) {
+                    headers['Authorization'] = `Bearer ${apiKey}`;
+                }
+
+                const response = await fetch(`${gaiaNodeUrl}/v1/models`, { headers });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status} - ${await response.text()}`);
+                }
+
+                const data = await response.json();
+                const models = data.data; // Assuming OpenAI-compatible /v1/models returns { data: [...] }
+                console.log('Fetched models: ', data); // Log the full response to see available models
+                
+                modelSelect.innerHTML = ''; // Clear existing options
+                if (models && models.length > 0) {
+                    // NO FILTERING: Iterate over all models fetched
+                    models.sort((a, b) => a.id.localeCompare(b.id)); // Sort models alphabetically for consistency
+
+                    models.forEach(model => {
+                        const option = document.createElement('option');
+                        option.value = model.id;
+                        option.textContent = model.id;
+                        modelSelect.appendChild(option);
+                    });
+                    
+                    // Try to re-select the default model from env config or the previously selected one
+                    // Ensure the default model is actually in the fetched list
+                    if (envConfig.defaultModel && [...modelSelect.options].some(opt => opt.value === envConfig.defaultModel)) {
+                        modelSelect.value = envConfig.defaultModel;
+                    } else if (modelSelect.options.length > 0) {
+                        modelSelect.selectedIndex = 0; // Select the first available model
+                    }
+                } else {
+                    const option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = 'No models found';
+                    modelSelect.appendChild(option);
+                }
+                document.getElementById('currentModel').textContent = modelSelect.value || 'No model selected';
+
+            } catch (error) {
+                console.error('Error fetching models:', error);
+                modelSelect.innerHTML = '<option value="">Failed to load models</option>';
+                document.getElementById('currentModel').textContent = 'No model selected';
+                // alert(`Failed to fetch models from ${gaiaNodeUrl}. Please check the URL and API Key. Error: ${error.message}`);
+            } finally {
+                modelSelect.disabled = false;
+            }
+        }
+
+        function updateConnectionStatus(status) {
+            connectionStatus = status;
+            const statusElement = document.getElementById('connectionStatus');
+            const textElement = document.getElementById('connectionText');
+            
+            statusElement.className = 'status-indicator';
+            
+            switch(status) {
+                case 'connected':
+                    statusElement.classList.add('status-connected');
+                    textElement.textContent = 'Connected';
+                    break;
+                case 'connecting':
+                    statusElement.classList.add('status-connecting');
+                    textElement.textContent = 'Connecting...';
+                    break;
+                case 'disconnected':
+                default:
+                    statusElement.classList.add('status-disconnected');
+                    textElement.textContent = 'Disconnected';
+                    break;
+            }
+            
+            const modelSelect = document.getElementById('modelSelect');
+            document.getElementById('currentModel').textContent = 
+                status === 'connected' ? modelSelect.value : 'No model selected';
+        }
+
+        async function testConnection() {
+            const button = document.getElementById('testButton');
+            const gaiaNodeUrl = document.getElementById('gaiaNodeUrl').value.trim();
+            const apiKey = document.getElementById('apiKey').value.trim();
+            
+            if (!gaiaNodeUrl) {
+                alert('Please enter a Gaia Node URL');
+                return;
+            }
+            
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Testing...';
+            updateConnectionStatus('connecting');
+            
+            try {
+                const response = await fetch('/api/test-gaia', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        gaiaNodeUrl: gaiaNodeUrl,
+                        model: document.getElementById('modelSelect').value,
+                        apiKey: apiKey || undefined
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    updateConnectionStatus('connected');
+                    addMessage('✅ Connection successful! Gaia Node is ready for financial analysis.', 'system');
+                    await fetchAndPopulateModels(); // Re-fetch models on successful connection
+                } else {
+                    updateConnectionStatus('disconnected');
+                    addMessage(`❌ Connection failed: ${data.error}`, 'system');
+                }
+            } catch (error) {
+                updateConnectionStatus('disconnected');
+                addMessage(`❌ Connection error: ${error.message}`, 'system');
+            }
+            
+            button.disabled = false;
+            button.innerHTML = '<i class="fas fa-plug mr-2"></i>Test Connection';
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendQuickPrompt(prompt) {
+            document.getElementById('messageInput').value = prompt;
+            sendMessage();
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message || isLoading) return;
+            
+            if (connectionStatus !== 'connected') {
+                alert('Please test and establish connection to Gaia Node first.');
+                return;
+            }
+            
+            input.value = '';
+            isLoading = true;
+            
+            // Add user message
+            addMessage(message, 'user');
+            
+            // Show loading
+            const loadingId = addMessage('', 'loading');
+            
+            try {
+                const requestBody = {
+                    message: message,
+                    gaiaNodeUrl: document.getElementById('gaiaNodeUrl').value.trim(),
+                    model: document.getElementById('modelSelect').value,
+                    temperature: parseFloat(document.getElementById('temperature').value)
+                };
+                
+                // Add API key if provided
+                const apiKey = document.getElementById('apiKey').value.trim();
+                if (apiKey) {
+                    requestBody.apiKey = apiKey;
+                }
+                
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+                
+                const data = await response.json();
+                
+                // Remove loading message
+                document.getElementById(loadingId).remove();
+                
+                if (response.ok) {
+                    // Add bot response - handle empty or null response
+                    const responseContent = data.response || "I didn't receive a proper response. Please try again.";
+                    addMessage(responseContent, 'assistant', data.toolCalls);
+                    
+                    // Show usage info if available
+                    if (data.usage) {
+                        addMessage(`📊 Tokens used: ${data.usage.total_tokens || 'N/A'} (prompt: ${data.usage.prompt_tokens || 'N/A'}, completion: ${data.usage.completion_tokens || 'N/A'})`, 'system');
+                    }
+                    
+                    // Show tool calls summary if available
+                    if (data.toolCalls && data.toolCalls.length > 0) {
+                        const toolSummary = data.toolCalls.map(tc => {
+                            const toolName = tc.toolCall?.function?.name || tc.tool || 'unknown';
+                            return `🔧 ${toolName}`;
+                        }).join(', ');
+                        addMessage(`Tools used: ${toolSummary}`, 'system');
+                    }
+                
+                } else {
+                    addMessage(`❌ Error: ${data.error}`, 'system');
+                    if (data.error.includes('Cannot connect')) {
+                        updateConnectionStatus('disconnected');
+                    }
+                }
+                if (!data.response && data.toolCalls?.some(tc => tc.result?.error)) {
+                    const errorMsg = data.toolCalls.find(tc => tc.result?.error)?.result?.message || 'One or more tools failed';
+                    addMessage(`⚠️ Tool execution error: ${errorMsg}`, 'system');
+                }
+                
+            } catch (error) {
+                document.getElementById(loadingId).remove();
+                addMessage(`❌ Network error: ${error.message}`, 'system');
+                updateConnectionStatus('disconnected');
+            }
+            
+            isLoading = false;
+        }
+
+        function addMessage(content, sender, toolCalls = null) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            const messageId = 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            messageDiv.id = messageId;
+            messageDiv.className = 'message-animation mb-4';
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `
+                    <div class="flex justify-end">
+                        <div class="bg-blue-600 text-white px-4 py-2 rounded-lg max-w-3xl">
+                            <div class="flex items-center mb-1">
+                                <i class="fas fa-user mr-2"></i>
+                                <span class="font-medium">You</span>
+                            </div>
+                            <div>${escapeHtml(content)}</div>
+                        </div>
+                    </div>
+                `;
+            } else if (sender === 'loading') {
+                messageDiv.innerHTML = `
+                    <div class="flex justify-start">
+                        <div class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg max-w-3xl">
+                            <div class="flex items-center">
+                                <i class="fas fa-robot mr-2"></i>
+                                <span class="loading-dots">Analyzing financial data</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (sender === 'assistant') {
+                let toolCallInfo = '';
+                if (toolCalls && toolCalls.length > 0) {
+                    toolCallInfo = `
+                        <div class="text-xs text-blue-600 mb-2 flex flex-wrap gap-1">
+                            ${toolCalls.map(tc => {
+                                const toolName = tc.toolCall?.function?.name || tc.tool || 'unknown';
+                                return `<span class="tool-call-badge">
+                                    <i class="fas fa-cog mr-1"></i>${toolName}
+                                </span>`;
+                            }).join('')}
+                        </div>
+                    `;
+                }
+                
+                messageDiv.innerHTML = `
+                    <div class="flex justify-start">
+                        <div class="bg-gray-100 text-gray-800 px-4 py-2 rounded-lg max-w-3xl">
+                            <div class="flex items-center mb-1">
+                                <i class="fas fa-robot mr-2 text-blue-600"></i>
+                                <span class="font-medium">AI Assistant</span>
+                            </div>
+                            ${toolCallInfo}
+                            <div class="prose prose-sm max-w-none">${formatContent(content || 'No response received')}</div>
+                        </div>
+                    </div>
+                `;
+            } else if (sender === 'system') {
+                messageDiv.innerHTML = `
+                    <div class="flex justify-center">
+                        <div class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded text-sm border border-yellow-200">
+                            ${escapeHtml(content)}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            return messageId;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatContent(content) {
+            if (!content) return 'No content received';
+            
+            return content
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/`(.*?)`/g, '<code class="bg-gray-200 px-1 rounded">$1</code>')
+                .replace(/\n\n/g, '<br><br>')
+                .replace(/\n/g, '<br>');
+        }
+    </script>
+</body>
+</html>

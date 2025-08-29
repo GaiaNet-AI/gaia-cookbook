@@ -1,0 +1,41 @@
+{
+  "name": "gaia-hedera-starter-kit",
+  "version": "1.0.0",
+  "description": "A starter kit to build LLM-powered applications on the Hedera Network using a local Gaia Node for tool-calling.",
+  "main": "tool-calling-agent.js",
+  "type": "module",
+  "scripts": {
+    "start:autonomous": "node tool-calling-agent.js",
+    "start:nft": "node structured-chat-agent.js",
+    "start:wallet-sim": "node return-bytes-agent.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harishkotra/gaia-hedera-starter-kit.git"
+  },
+  "keywords": [
+    "gaia",
+    "hedera",
+    "llm",
+    "ai-agent",
+    "blockchain",
+    "langchain",
+    "tool-calling",
+    "hedera-agent-kit"
+  ],
+  "author": "Harish Kotra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/harishkotra/gaia-hedera-starter-kit/issues"
+  },
+  "dependencies": {
+    "@hashgraph/sdk": "^2.70.0",
+    "@langchain/core": "^0.3.68",
+    "@langchain/openai": "^0.6.7",
+    "dotenv": "^17.2.1",
+    "hedera-agent-kit": "^3.0.7",
+    "langchain": "^0.3.30",
+    "prompts": "^2.4.2"
+  }
+}

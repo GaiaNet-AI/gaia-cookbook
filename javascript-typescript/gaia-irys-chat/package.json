@@ -1,0 +1,31 @@
+{
+  "name": "gaia-irys-chat",
+  "version": "1.0.0",
+  "description": "AI Prompt Storage with Irys and Gaia Node",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "client": "serve public",
+    "build": "echo 'No build step required for this project'"
+  },
+  "author": "Harish Kotra",
+  "license": "MIT",
+  "dependencies": {
+    "@irys/sdk": "^0.2.11",
+    "@irys/upload": "^0.0.15",
+    "@irys/upload-ethereum": "^0.0.16",
+    "@irys/web-upload": "^0.0.1",
+    "@irys/web-upload-ethereum": "^0.0.1",
+    "@irys/web-upload-ethereum-ethers-v6": "^0.0.1",
+    "axios": "^1.5.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.7.1",
+    "express": "^4.18.2",
+    "openai": "^4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
