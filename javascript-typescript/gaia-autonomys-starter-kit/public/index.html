@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaia x Auto Drive Chat</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
+    <style>
+        .chat-markdown h1,
+        .chat-markdown h2,
+        .chat-markdown h3,
+        .chat-markdown h4,
+        .chat-markdown h5,
+        .chat-markdown h6 {
+        margin: 0.4em 0 0.2em;
+        line-height: 1.3;
+        font-weight: 600;
+        }
+
+        .chat-markdown h1 { font-size: 1.1rem; }
+        .chat-markdown h2 { font-size: 1.05rem; }
+        .chat-markdown h3 { font-size: 1rem; }
+        .chat-markdown h4 { font-size: 0.95rem; }
+        .chat-markdown h5 { font-size: 0.9rem; }
+        .chat-markdown h6 { font-size: 0.85rem; color: #555; }
+
+        .chat-markdown p {
+        margin: 0.3em 0;
+        line-height: 1.4;
+        }
+
+        .chat-markdown ul,
+        .chat-markdown ol {
+        margin: 0.3em 0 0.3em 1.2em;
+        padding: 0;
+        }
+
+        .chat-markdown li {
+        margin: 0.2em 0;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h1 class="text-3xl font-bold text-gray-800 mb-4">Gaia x Auto Drive Chat</h1>
+                <div class="flex items-center justify-between mb-4">
+                    <div id="wallet-status" class="text-gray-600">
+                        <span id="connection-status">Not connected</span>
+                        <span id="wallet-address" class="ml-2 font-mono text-sm"></span>
+                    </div>
+                    <div class="space-x-2">
+                        <button id="connect-wallet" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                            Connect Wallet
+                        </button>
+                        <button id="disconnect-wallet"
+                            class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded hidden">
+                            Disconnect
+                        </button>
+                    </div>
+                </div>
+                <div id="network-warning" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-yellow-800">
+                                <strong>Network Required:</strong> This application requires connection to
+                                <strong>Autonomys EVM (Chain ID: 490000)</strong> to function. Chat and storage features
+                                are disabled until you connect your wallet to the correct network.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md mb-6">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Gaia Node Information</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm mb-4">
+                        <div>
+                            <span class="font-medium text-gray-600">Node URL:</span>
+                            <div id="node-url" class="font-mono text-blue-600 break-all">Loading...</div>
+                        </div>
+                        <div>
+                            <span class="font-medium text-gray-600">Available Models:</span>
+                            <div id="available-models" class="text-gray-800">Loading...</div>
+                        </div>
+                        <div>
+                            <span class="font-medium text-gray-600">Current Model:</span>
+                            <div id="current-model" class="text-gray-800">Not selected</div>
+                        </div>
+                    </div>
+
+                    <div class="border-t pt-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-medium text-gray-600">System Prompt:</span>
+                            <div class="space-x-2">
+                                <button id="edit-prompt-btn"
+                                    class="text-blue-600 hover:text-blue-800 text-sm">Edit</button>
+                                <button id="reset-prompt-btn"
+                                    class="text-red-600 hover:text-red-800 text-sm hidden">Reset to Default</button>
+                            </div>
+                        </div>
+                        <div id="system-prompt-display" class="text-gray-800 text-sm bg-gray-50 p-3 rounded border">
+                            Loading...</div>
+                        <div id="system-prompt-editor" class="hidden mt-2">
+                            <textarea id="system-prompt-input"
+                                class="w-full p-3 border border-gray-300 rounded-lg text-sm resize-vertical" rows="3"
+                                placeholder="Enter your custom system prompt..."></textarea>
+                            <div class="flex justify-end space-x-2 mt-2">
+                                <button id="cancel-edit-btn"
+                                    class="px-4 py-2 text-gray-600 hover:text-gray-800 text-sm">Cancel</button>
+                                <button id="save-prompt-btn"
+                                    class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md mb-6">
+                <div class="p-6 border-b">
+                    <h2 class="text-xl font-semibold text-gray-800">Chat with Gaia Node</h2>
+                    <div class="mt-2 text-sm text-gray-600">
+                        <span>Session: <span id="session-id" class="font-mono"></span></span>
+                        <span class="ml-4">Tokens used: <span id="token-count">0</span></span>
+                    </div>
+                </div>
+
+                <div id="chat-messages" class="h-96 overflow-y-auto p-6 space-y-4">
+                </div>
+
+                <div class="p-6 border-t">
+                    <div class="flex space-x-2">
+                        <input type="text" id="message-input" placeholder="Connect your wallet to start chatting..."
+                            class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            disabled>
+                        <button id="send-message"
+                            class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled>
+                            Connect Wallet
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Auto Drive Storage</h2>
+                <div class="space-y-4">
+                    <button id="store-chat"
+                        class="bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                        disabled>
+                        Connect Wallet to Store
+                    </button>
+
+                    <div id="storage-result" class="hidden mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                        <h3 class="font-semibold text-green-800">Chat Stored Successfully!</h3>
+                        <div class="mt-3 text-sm text-green-700 space-y-2">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <p><strong>CID:</strong></p>
+                                    <p><span id="stored-cid" class="font-mono text-xs break-all"></span></p>
+                                </div>
+                                <div>
+                                    <p><strong>Storage Cost:</strong></p>
+                                    <p class="text-lg font-semibold text-green-800">
+                                        <span id="storage-cost">0</span> tAI3
+                                    </p>
+                                    <p class="text-xs text-gray-600">
+                                        Size: <span id="file-size">0</span> KB
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="border-t pt-2">
+                                <p><strong>Access URL:</strong></p>
+                                <p><a id="stored-url" href="#" target="_blank"
+                                        class="text-blue-600 hover:underline break-all text-xs"></a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="chat-history-section" class="bg-white rounded-lg shadow-md p-6 hidden">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800">Your Chat History</h2>
+                    <button id="refresh-history" 
+                        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm">
+                        Refresh
+                    </button>
+                </div>
+                
+                <div id="history-loading" class="hidden text-center py-8">
+                    <div class="text-gray-600">Loading your chat history...</div>
+                </div>
+                
+                <div id="history-empty" class="hidden text-center py-8">
+                    <div class="text-gray-600">No chat history found for your wallet address.</div>
+                </div>
+                
+                <div id="history-list" class="space-y-3">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

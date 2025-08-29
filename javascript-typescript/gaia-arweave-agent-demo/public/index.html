@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaia x Arweave Chat</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <style>
+    body {
+      background-color: #ffffff; /* White background */
+    }
+
+    .chat-container {
+      max-height: 500px;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+
+    .message-sender { /* User messages */
+      background-color: #0d6efd; /* Blue for user messages */
+      color: white;
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .message-receiver { /* Gaia messages */
+      background-color: #f0f0f0; /* Light gray for Gaia messages */
+      color: #212529; /* Dark text for Gaia messages */
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .message-sender::before,
+    .message-receiver::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 10px 0 10px 10px;
+      border-color: transparent transparent transparent #0d6efd; /* Adjust based on sender/receiver */
+      left: -10px;
+      top: 10px;
+    }
+
+    .message-receiver::before {
+      border-color: transparent transparent transparent #f0f0f0; /* Adjust based on sender/receiver */
+      right: -10px;
+      left: auto;
+    }
+
+    .message-sender > div,
+    .message-receiver > div {
+      max-width: 75%;
+    }
+
+    .message-sender > div {
+      margin-left: 10px;
+    }
+
+    .message-receiver > div {
+      margin-right: 10px;
+    }
+
+    .chat-input-form {
+      background-color: #f8f9fa; /* Light gray for input area */
+      padding: 0.75rem;
+    }
+
+    .chat-input-form .form-control {
+      border-radius: 1.5rem 0 0 1.5rem; /* Rounded left side */
+      border: 1px solid #ced4da;
+      padding-left: 1.25rem;
+    }
+
+    .chat-input-form .btn {
+      border-radius: 0 1.5rem 1.5rem 0; /* Rounded right side */
+      padding: 0.5rem 1.25rem;
+    }
+
+    #upload-status {
+      min-height: 1.5rem; /* Ensure space for spinner */
+    }
+
+    .action-buttons {
+      gap: 0.5rem; /* Space between buttons */
+    }
+
+    .chat-box {
+        max-height: 500px;
+        overflow-y: auto;
+    }
+
+    #messages {
+        padding: 1rem;
+    }
+
+    .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    ul.timeline {
+        list-style-type: none;
+        position: relative;
+        padding-left: 30px; /* Adjust if line position changes */
+    }
+    ul.timeline:before {
+        content: ' ';
+        background: #d4d9df; /* Line color */
+        display: inline-block;
+        position: absolute;
+        left: 29px; /* Aligns with circle center (20px left + 10px circle radius - 1px line width/2) */
+        width: 2px;
+        height: calc(100% - 20px); /* Adjust height if needed */
+        z-index: 1;
+        top: 10px; /* Start line a bit below the first circle */
+    }
+    ul.timeline > li.timeline-step {
+        margin: 20px 0;
+        padding-left: 20px; /* Space for the circle */
+        position: relative;
+    }
+    ul.timeline > li.timeline-step:before {
+        content: ' ';
+        background: white; /* Circle background */
+        display: inline-block;
+        position: absolute;
+        border-radius: 50%;
+        border: 3px solid #6c757d; /* Default circle color (Bootstrap text-muted) */
+        left: -10px; /* Position circle on the line */
+        width: 20px;
+        height: 20px;
+        z-index: 2;
+        top: 2px; /* Align circle vertically with text */
+    }
+    /* --- TIMELINE STATE CLASSES --- */
+    ul.timeline > li.timeline-step.completed:before {
+        border-color: #28a745; /* Success color (Bootstrap success) */
+        background-color: #28a745; /* Fill the circle */
+        content: ''; /* Remove default content */
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z'/%3e%3c/svg%3e"); /* White checkmark */
+        background-size: 12px 12px; /* Size of the checkmark */
+        background-position: center; /* Center the checkmark */
+        background-repeat: no-repeat; /* No repeat */
+    }
+    ul.timeline > li.timeline-step.in-progress:before {
+        border-color: #007bff; /* Primary color (Bootstrap primary) */
+        background-color: #007bff; /* Fill the circle */
+        animation: pulse-border 1.5s infinite; /* Add animation */
+    }
+    ul.timeline > li.timeline-step.error:before {
+        border-color: #dc3545; /* Danger color (Bootstrap danger) */
+        background-color: #dc3545; /* Fill the circle */
+        content: '!'; /* Show error indicator */
+        color: white;
+        text-align: center;
+        line-height: 17px; /* Vertically center the '!' */
+        font-weight: bold;
+        font-size: 12px;
+    }
+    ul.timeline > li.timeline-step.completed > p,
+    ul.timeline > li.timeline-step.completed > strong {
+        color: #28a745; /* Success text color */
+    }
+    ul.timeline > li.timeline-step.in-progress > p,
+    ul.timeline > li.timeline-step.in-progress > strong {
+        color: #007bff; /* Primary text color */
+    }
+    ul.timeline > li.timeline-step.error > p,
+    ul.timeline > li.timeline-step.error > strong {
+        color: #dc3545; /* Danger text color */
+    }
+    @keyframes pulse-border {
+      0% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(0, 123, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
+    }
+    /* --- END OF TIMELINE CSS --- */
+
+    /* Optional: Style the toggle button */
+    #toggle-timeline {
+       transition: opacity 0.2s;
+    }
+    #toggle-timeline:hover {
+       opacity: 0.8;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-8 col-lg-10">
+
+        <!-- Logo -->
+        <img src="gaia x arweave.png" alt="Gaia x Arweave Logo" class="app-logo">
+
+        <!-- Instructions Card -->
+        <div class="card instructions">
+          <div class="card-body">
+            <h5 class="card-title">About This App</h5>
+            <p class="card-text text-small">
+              Chat with a Gaia AI model and store your conversation permanently on the Arweave permaweb.
+            </p>
+            <h6 class="card-subtitle mb-2 text-muted text-small">How to Use:</h6>
+            <ol class="card-text text-small mb-0">
+              <li>Type your message and click <strong>Send</strong> or press Enter.</li>
+              <li>Use <strong>Undo</strong> to remove your last message and the AI's response.</li>
+              <li>Click <strong>Upload Chat to Arweave</strong> to save the conversation.</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="chat-container bg-light rounded-lg shadow">
+          <!-- Chat Box Area -->
+          <div class="chat-box px-4 pt-4 pb-2">
+            <ul id="messages" class="list-unstyled mb-0">
+              <!-- Messages will be appended here dynamically -->
+            </ul>
+          </div>
+
+          <!-- Input Area -->
+          <form id="chat-form" class="chat-input-form rounded-0">
+            <div class="input-group">
+              <input type="text" id="user-input" class="form-control rounded-0 border-0 py-3 bg-light" placeholder="Type your message..." aria-label="Message input">
+              <button class="btn btn-primary rounded-0" type="submit" id="send-button">
+                <i class="bi bi-send"></i> <!-- Bootstrap Icon for Send -->
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex action-buttons justify-content-between mt-3">
+        <button id="undo-button" class="btn btn-secondary btn-sm">Undo Last Message</button>
+        <div>
+            <button id="upload-button" class="btn btn-success btn-sm me-2">Upload Chat to Arweave</button>
+            <button id="toggle-timeline" class="btn btn-outline-info btn-sm" style="display:none;" title="Show/Hide Upload Timeline">
+            <i class="bi bi-list-task"></i> Timeline
+            </button>
+        </div>
+        </div>
+
+        <!-- Arweave Upload Timeline (Initially Hidden) -->
+        <div id="arweave-timeline-container" class="mt-3" style="display: none;">
+            <h5 class="mb-3">Upload Progress</h5>
+            <ul id="arweave-timeline" class="timeline">
+                <li id="timeline-step-estimates" class="timeline-step">
+                <strong>Get Estimates</strong>
+                <span id="estimates-time" class="float-end text-muted small"></span>
+                <p id="estimates-details" class="mb-0 text-muted small">Calculating cost and payment address...</p>
+                </li>
+                <li id="timeline-step-upload" class="timeline-step">
+                <strong>Upload Transcript</strong>
+                <span id="upload-time" class="float-end text-muted small"></span>
+                <p id="upload-details" class="mb-0 text-muted small">Sending data to Arweave bundler...</p>
+                </li>
+                <li id="timeline-step-finalize" class="timeline-step">
+                <strong>Finalize on Arweave</strong>
+                <span id="finalize-time" class="float-end text-muted small"></span>
+                <p id="finalize-details" class="mb-0 text-muted small">Waiting for transaction confirmation...</p>
+                </li>
+            </ul>
+
+            <div class="d-flex justify-content-end mt-2">
+                <button id="refresh-uploads-btn" class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-arrow-repeat me-1"></i> Refresh Uploads
+                </button>
+            </div>
+
+            <!-- Uploads List Container -->
+            <div id="uploads-list-container" class="mt-3" style="display: none;">
+                <h6 class="mb-2">My Recent Uploads</h6>
+                <div id="uploads-list-content">
+                    <!-- Uploads will be populated here dynamically -->
+                    <p class="text-muted small">Click "Refresh Uploads" to load.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Display -->
+        <div id="upload-status" class="mt-3 text-center text-muted text-small">
+             <!-- Status messages/loading will appear here -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4/dist/socket.io.min.js"></script>
+  <script src="/main.js"></script>
+</body>
+</html>

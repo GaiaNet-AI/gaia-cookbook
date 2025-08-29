@@ -1,0 +1,894 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #142736; 
+    color: #ffffff;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #28353d; 
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #3bb2d0; 
+}
+
+header p {
+    color: #a0b0c0;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.model-info {
+    margin-top: 15px;
+    font-size: 1rem;
+    color: #a0b0c0;
+}
+
+.model-info strong {
+    color: #3bb2d0; 
+}
+
+.system-prompt {
+    font-size: 0.85rem;
+    color: #a0b0c0;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+.wallet-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #28353d; 
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#walletConnectArea, #walletDisconnectArea {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#connectWalletBtn, #disconnectWalletBtn {
+    background: #3bb2d0; 
+    color: #142736;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#disconnectWalletBtn {
+    background: #e55e5e; 
+    color: white;
+}
+
+#connectWalletBtn:hover {
+    background: #3887be; 
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#disconnectWalletBtn:hover {
+    background: #ed6498; 
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#connectWalletBtn:disabled, #disconnectWalletBtn:disabled {
+    background: #50667f; 
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+#walletStatus, #connectedAddress {
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 30px;
+    background: #222b30; 
+    color: #a0b0c0;
+}
+
+#connectedAddress {
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+.chat-container {
+    background: #28353d; 
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chat-actions {
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+.clear-chat-btn {
+    background: #e55e5e; 
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.clear-chat-btn:hover {
+    background: #ed6498; 
+    transform: translateY(-2px);
+}
+
+.clear-chat-btn:disabled {
+    background: #50667f; 
+    cursor: not-allowed;
+    transform: none;
+}
+
+.chat-history {
+    height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #222b30; 
+    border-radius: 10px;
+}
+
+.placeholder {
+    text-align: center;
+    color: #a0b0c0;
+    font-style: italic;
+    padding: 20px;
+}
+
+.message {
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    max-width: 80%;
+}
+
+.user-message {
+    background: #3bb2d0; 
+    margin-left: auto;
+    text-align: right;
+    color: #142736;
+}
+
+.ai-message {
+    background: #222b30; 
+    margin-right: auto;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#promptInput {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #50667f; 
+    background: #222b30; 
+    color: white;
+    font-size: 1rem;
+    resize: vertical;
+    min-height: 80px;
+}
+
+#promptInput:focus {
+    outline: none;
+    border-color: #3bb2d0; 
+}
+
+.controls {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#sendBtn {
+    background: #56b881; /* bc-background-mapbox-4 */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#sendBtn:hover {
+    background: #41afa5; 
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#sendBtn:disabled {
+    background: #50667f; 
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.upload-section {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #28353d; 
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#uploadBtn {
+    background: #8a8acb; 
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+}
+
+#uploadBtn:hover:not(:disabled) {
+    background: #3887be; 
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#uploadBtn:disabled {
+    background: #50667f; 
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.upload-info {
+    color: #a0b0c0;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.cost-info {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #a0b0c0;
+}
+
+.cost-info strong {
+    color: #56b881;
+}
+
+.cost-info .error {
+    color: #e55e5e;
+}
+
+.transactions-section {
+    background: #28353d; 
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.transactions-section h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #3bb2d0; 
+}
+
+#transactionsList {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.transaction {
+    background: #222b30; 
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.transaction-info {
+    flex: 1;
+    min-width: 200px;
+}
+
+.transaction-id {
+    font-family: monospace;
+    font-size: 0.9rem;
+    word-break: break-all;
+    color: #a0b0c0;
+}
+
+.transaction-time {
+    font-size: 0.8rem;
+    color: #a0b0c0;
+    margin-top: 5px;
+}
+
+.transaction-link {
+    color: #3bb2d0; 
+    text-decoration: none;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.transaction-link:hover {
+    text-decoration: underline;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.status.success {
+    background: rgba(86, 184, 129, 0.2); 
+    color: #56b881;
+}
+
+.status.pending {
+    background: rgba(251, 176, 59, 0.2);
+    color: #fbb03b;
+}
+
+.cost {
+    font-size: 0.8rem;
+    color: #a0b0c0;
+    white-space: nowrap;
+}
+
+.edit-prompt-btn {
+    background: none;
+    border: 1px solid #3bb2d0; 
+    color: #3bb2d0; 
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.edit-prompt-btn:hover {
+    background: rgba(59, 178, 208, 0.1);
+}
+
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(20, 39, 54, 0.8);
+    backdrop-filter: blur(3px);
+}
+
+.modal-content {
+    background-color: #28353d; 
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid #50667f; 
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #50667f; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: #3bb2d0; 
+}
+
+.close-modal {
+    color: #a0b0c0;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-modal:hover {
+    color: #ffffff;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+#systemPromptTextarea {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #50667f; 
+    background: #222b30; 
+    color: white;
+    font-size: 1rem;
+    resize: vertical;
+    min-height: 150px;
+    margin-bottom: 20px;
+}
+
+#systemPromptTextarea:focus {
+    outline: none;
+    border-color: #3bb2d0; 
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-actions button {
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+#cancelPromptBtn {
+    background: #50667f; 
+    color: white;
+}
+
+#cancelPromptBtn:hover {
+    background: #222b30; 
+}
+
+#savePromptBtn {
+    background: #56b881;
+    color: white;
+}
+
+#savePromptBtn:hover {
+    background: #41afa5; 
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .wallet-section {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .controls {
+        justify-content: center;
+    }
+    
+    #sendBtn {
+        width: 100%;
+    }
+    
+    .transaction {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .transaction-info {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+
+.wallet-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #1e293b;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.wallet-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.wallet-btn {
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 30px;
+    width: fit-content;
+}
+
+.connect-btn {
+    background: #3bb2d0; /* Primary color */
+    color: white;
+}
+
+.connect-btn:hover {
+    background: #3887be; /* Slightly darker primary color */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.disconnect-btn {
+    background: #e55e5e; /* Error/Warning color */
+    color: white;
+}
+
+.disconnect-btn:hover {
+    background: #ed6498; /* Slightly darker error color */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.wallet-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#walletStatus {
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 30px;
+    background: #334155;
+    color: white;
+}
+
+#connectedAddress {
+    font-family: monospace;
+    font-size: 0.9rem;
+    background: #334155;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+}
+.balance-info {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    border-radius: 20px;
+    background: #222b30;
+    color: #a0b0c0;
+    font-weight: 500;
+    margin-left: 10px;
+  }
+  
+  .balance-warning {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    border-radius: 20px;
+    background: rgba(229, 94, 94, 0.2);
+    color: #e55e5e;
+    font-weight: 500;
+    margin-left: 10px;
+    animation: pulse 2s infinite;
+  }
+  
+  .balance-normal {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    border-radius: 20px;
+    background: rgba(86, 184, 129, 0.2);
+    color: #56b881;
+    font-weight: 500;
+    margin-left: 10px;
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+  }
+  
+  /* Update wallet section styles to accommodate balance display */
+  .wallet-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #28353d;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+  }
+  
+  #walletConnectArea, #walletDisconnectArea {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Wallet section styles */
+.wallet-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: #142736; /* Dark background */
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+  }
+  
+  .wallet-status-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .address-badge {
+    background: #28353d;
+    color: #a0b0c0;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+  
+  .irys-balance {
+    background: #28353d;
+    color: #a0b0c0;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+  
+  .disconnect-btn {
+    background: #e55e5e;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .disconnect-btn:hover {
+    background: #ed6498;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .balance-warning {
+    background: rgba(229, 94, 94, 0.2);
+    color: #e55e5e;
+    animation: pulse 2s infinite;
+  }
+  
+  .balance-normal {
+    background: rgba(86, 184, 129, 0.2);
+    color: #56b881;
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+  }
+
+  .settings-section {
+    background: #28353d;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #50667f;
+    cursor: pointer;
+}
+
+.settings-header h2 {
+    margin: 0;
+    color: #3bb2d0;
+    font-size: 1.5rem;
+}
+
+.toggle-settings-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #3bb2d0;
+    transition: transform 0.3s ease;
+}
+
+.toggle-settings-btn:hover {
+    transform: rotate(90deg);
+}
+
+.settings-content {
+    padding: 20px;
+    display: none;
+}
+
+.settings-content.active {
+    display: block;
+}
+
+.setting-item {
+    margin-bottom: 20px;
+}
+
+.setting-item label {
+    display: block;
+    margin-bottom: 8px;
+    color: #a0b0c0;
+    font-weight: 500;
+}
+
+.setting-item input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid #50667f;
+    background: #222b30;
+    color: white;
+    font-size: 1rem;
+}
+
+.setting-item input:focus {
+    outline: none;
+    border-color: #3bb2d0;
+}
+
+.setting-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.setting-actions button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+#testConnectionBtn {
+    background: #8a8acb;
+    color: white;
+}
+
+#testConnectionBtn:hover {
+    background: #3887be;
+}
+
+#saveSettingsBtn {
+    background: #56b881;
+    color: white;
+}
+
+#saveSettingsBtn:hover {
+    background: #41afa5;
+}
+
+.connection-status {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.connection-success {
+    background: rgba(86, 184, 129, 0.2);
+    color: #56b881;
+}
+
+.connection-error {
+    background: rgba(229, 94, 94, 0.2);
+    color: #e55e5e;
+}
+
+.connection-loading {
+    background: rgba(59, 178, 208, 0.2);
+    color: #3bb2d0;
+}

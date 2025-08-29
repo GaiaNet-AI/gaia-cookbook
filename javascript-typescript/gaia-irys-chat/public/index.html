@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaia x Irys | Chat to Decentralized Storage Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Gaia × Irys</h1>
+            <p>Store your AI conversations on-chain with permanent storage</p>
+            <div id="modelInfo" class="model-info"></div>
+        </header>
+
+        <div class="wallet-section">
+            <div id="walletConnectArea">
+              <button id="connectWalletBtn">Connect Wallet</button>
+              <div id="walletStatus">Not connected</div>
+            </div>
+            <div id="walletDisconnectArea" style="display: none;">
+              <div class="wallet-status-container">
+                <span class="address-badge" id="connectedAddress"></span>
+                <div class="irys-balance" id="irysBalance">Irys Balance: Checking...</div>
+              </div>
+              <button id="disconnectWalletBtn">Disconnect Wallet</button>
+            </div>
+          </div>
+
+        <div class="chat-container">
+            <div class="chat-history" id="chatHistory">
+                <p class="placeholder">No messages yet. Start a conversation with the AI.</p>
+            </div>
+            
+            <!-- Add this clear button -->
+            <div class="chat-actions">
+                <button id="clearChatBtn" class="clear-chat-btn">Clear Chat</button>
+            </div>
+            
+            <div class="input-area">
+                <textarea 
+                    id="promptInput" 
+                    placeholder="Enter your message here..." 
+                    rows="3"></textarea>
+                <div class="controls">
+                    <button id="sendBtn">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="upload-section">
+            <button id="uploadBtn" disabled>Upload to Irys</button>
+            <p class="upload-info">Upload your entire conversation to Irys when you're ready</p>
+            <div id="costInfo" class="cost-info"></div>
+        </div>
+
+        <div class="transactions-section">
+            <h2>On-Chain Transactions</h2>
+            <div id="transactionsList">
+                <!-- Transactions will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="systemPromptModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit System Prompt</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <textarea id="systemPromptTextarea" rows="8" placeholder="Enter system prompt here..."></textarea>
+                <div class="modal-actions">
+                    <button id="cancelPromptBtn">Cancel</button>
+                    <button id="savePromptBtn">Save Prompt</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
